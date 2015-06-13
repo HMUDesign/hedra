@@ -1,12 +1,14 @@
 import Debug from 'debug';
-let debug = Debug('hedra:environment');
+let debug = Debug('hedra:app');
 
+import Emitter from './lib/emitter';
 import Hedra from './hedra';
+
 import THREE from 'vendor/three';
 
-export default class Environment {
+export default class App extends Emitter {
 	constructor(config) {
-		
+		super();
 	}
 	
 	add(child) {
