@@ -39,10 +39,12 @@ export default function Resize(context, config) {
 	setTimeout(resize.bind(context, config), 0);
 	
 	if(config.fov) {
+		if(!config.ratio) config.ratio = 1.5;
+		
 		if(!config.x) config.x = 2 * THREE.Math.radToDeg(Math.atan(1 / 2));
 		var width = 2 * Math.tan(THREE.Math.degToRad(config.x / 2));
 		
-		if(!config.y) config.y = 2 * THREE.Math.radToDeg(Math.atan(width / 3));
+		if(!config.y) config.y = 2 * THREE.Math.radToDeg(Math.atan(width / (2 * config.ratio)));
 		var height = 2 * Math.tan(THREE.Math.degToRad(config.y / 2));
 		
 		if(config.helper) {
