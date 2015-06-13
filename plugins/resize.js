@@ -4,7 +4,6 @@ let debug = Debug('hedra:plugins:resize');
 import THREE from 'vendor/three';
 
 function resize(config) {
-	console.log(config)
 	var event = {
 		width: window.innerWidth,
 		height: window.innerHeight,
