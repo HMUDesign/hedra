@@ -1,7 +1,7 @@
 import Debug from 'debug';
 let debug = Debug('hedra');
 
-import Emitter from './lib/emitter';
+import Emitter from 'emitter';
 import THREE from 'vendor/three';
 
 export default class Hedra extends Emitter {
