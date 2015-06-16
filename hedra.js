@@ -29,12 +29,16 @@ export default class Hedra extends Emitter {
 	}
 	
 	add(child) {
-		if(!child instanceof Hedra) {
-			throw new Error('Hedra.app.add: Child not an instance of `Hedra`.');
+		if(child instanceof Hedra) {
+			this.children.push(child);
+			this._.add(child._);
 		}
-		
-		this.children.push(child);
-		this._.add(child._);
+		else if(child instanceof THREE.Object3D) {
+			this._.add(child);
+		}
+		else {
+			throw new Error('Hedra.app.add: Child not an instance of `Hedra` or `THREE.Object3D`.');
+		}
 	}
 	
 	bubble(...items) {
