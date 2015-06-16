@@ -39,18 +39,18 @@ export default function Resize(context, config) {
 	setTimeout(resize.bind(context, config), 0);
 	
 	if(config.fov) {
-		if(!config.ratio) config.ratio = 1.5;
+		if(!config.ratio) config.ratio = 16 / 9;
 		
-		if(!config.x) config.x = 2 * THREE.Math.radToDeg(Math.atan(1 / 2));
-		var width = 2 * Math.tan(THREE.Math.degToRad(config.x / 2));
-		
-		if(!config.y) config.y = 2 * THREE.Math.radToDeg(Math.atan(width / (2 * config.ratio)));
+		if(!config.y) config.y = 2 * THREE.Math.radToDeg(Math.atan(3 / 4));
 		var height = 2 * Math.tan(THREE.Math.degToRad(config.y / 2));
 		
+		if(!config.x) config.x = 2 * THREE.Math.radToDeg(Math.atan(height / 2 * config.ratio));
+		var width = 2 * Math.tan(THREE.Math.degToRad(config.x / 2));
+		
 		if(config.helper) {
-			context.fov_helper = new THREE.Mesh(new THREE.BoxGeometry(width, height, 1), new THREE.MeshBasicMaterial({ wireframe: true }));
+			context.fov_helper = new THREE.Mesh(new THREE.BoxGeometry(width / height, 1, 1), new THREE.MeshBasicMaterial({ wireframe: true }));
 			context.fov_helper.name = 'FOV Helper';
-			context.fov_helper.position.set(0, 0, -1.5);
+			context.fov_helper.position.set(0, 0, - 1 / height - .5);
 			context.camera.add(context.fov_helper);
 		}
 	}
