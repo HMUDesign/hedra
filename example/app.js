@@ -9,6 +9,12 @@ import Keys from 'hedra/plugins/keys';
 import Cube from './cube';
 
 export default class App extends BaseApp {
+	static load() {
+		return new Promise.all([
+			Cube.load(),
+		]);
+	}
+	
 	constructor(config) {
 		super(config);
 		
@@ -16,11 +22,13 @@ export default class App extends BaseApp {
 		Resize(this, { ratio: 16 / 9 });
 		Keys(this, {  });
 		
-		this.camera.position.set(0, 0, 15);
+		this.camera.position.set(0, 0, 1.5);
 		this.camera.lookAt(this.scene.position);
 		
-		this.cube = new Cube({  });
-		this.add(this.cube);
+		App.load().then(() => {
+			this.cube = new Cube();
+			this.add(this.cube);
+		});
 		
 		this.on('key').then((...items) => {
 			console.log('key', items)
