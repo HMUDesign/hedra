@@ -48,7 +48,6 @@ export default function Resize(context, config) {
 		var height = 2 * Math.tan(THREE.Math.degToRad(config.y / 2));
 		
 		if(config.helper) {
-			
 			context.fov_helper = new THREE.Mesh(new THREE.BoxGeometry(width, height, 1), new THREE.MeshBasicMaterial({ wireframe: true }));
 			context.fov_helper.name = 'FOV Helper';
 			context.fov_helper.position.set(0, 0, -1.5);

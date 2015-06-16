@@ -12,7 +12,6 @@ export default class App extends Hedra {
 		if(!config.width && !config.height) {
 			config.width = window.innerWidth;
 			config.height = window.innerHeight;
-			
 		}
 		
 		if(config.parent === document.body) {
