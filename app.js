@@ -2,10 +2,12 @@ import Debug from 'debug';
 let debug = Debug('hedra:app');
 
 import Hedra from './hedra';
-import THREE from 'vendor/three';
+import THREE from 'three';
 
 export default class App extends Hedra {
 	constructor(config) {
+		debug('construct', config);
+		
 		config.make = false;
 		config.parent = config.parent || document.body;
 		
@@ -67,11 +69,15 @@ export default class App extends Hedra {
 	}
 	
 	play() {
+		debug('play');
+		
 		this.clock.start();
 		requestAnimationFrame(() => { this.animate(); });
 	}
 	
 	pause() {
+		debug('pause');
+		
 		this.clock.stop();
 	}
 	

@@ -2,7 +2,7 @@ import Debug from 'debug';
 let debug = Debug('hedra:plugins:mouse');
 
 import Hedra from '../../hedra';
-import THREE from 'vendor/three';
+import THREE from 'three';
 
 let keys = {
 	'+': 107,
@@ -12,6 +12,8 @@ let keys = {
 }
 
 export default function Mouse(context, config) {
+	debug('initialize', config);
+	
 	config = config || {};
 	
 	

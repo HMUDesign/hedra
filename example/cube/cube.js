@@ -1,7 +1,7 @@
 import Debug from 'debug';
 let debug = Debug('app:cube');
 
-import THREE from 'vendor/three';
+import THREE from 'three';
 import Hedra from 'hedra';
 
 let material, geometry;

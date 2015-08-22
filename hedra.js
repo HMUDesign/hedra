@@ -2,10 +2,12 @@ import Debug from 'debug';
 let debug = Debug('hedra');
 
 import Emitter from 'emitter';
-import THREE from 'vendor/three';
+import THREE from 'three';
 
 export default class Hedra extends Emitter {
 	constructor(config) {
+		debug('construct', config);
+		
 		if(config.make === false) {
 			delete config.make;
 		}
@@ -29,6 +31,8 @@ export default class Hedra extends Emitter {
 	}
 	
 	add(child) {
+		debug('add', child);
+		
 		if(child instanceof Hedra) {
 			this.children.push(child);
 			this._.add(child._);
@@ -50,6 +54,8 @@ export default class Hedra extends Emitter {
 	}
 	
 	tween(config) {
+		debug('tween', config);
+		
 		var tween = new TWEEN.Tween(config.object || this);
 		
 		if(config.to && config.duration) {

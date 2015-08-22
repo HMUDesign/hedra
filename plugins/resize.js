@@ -1,9 +1,11 @@
 import Debug from 'debug';
 let debug = Debug('hedra:plugins:resize');
 
-import THREE from 'vendor/three';
+import THREE from 'three';
 
 function resize(config) {
+	debug('resize');
+	
 	var event = {
 		width: window.innerWidth,
 		height: window.innerHeight,
@@ -32,6 +34,8 @@ function resize(config) {
 }
 
 export default function Resize(context, config) {
+	debug('initialize', config);
+	
 	config = config || {};
 	if(config.fov !== false) config.fov = true;
 	

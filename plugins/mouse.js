@@ -2,7 +2,7 @@ import Debug from 'debug';
 let debug = Debug('hedra:plugins:mouse');
 
 import Hedra from '../../hedra';
-import THREE from 'vendor/three';
+import THREE from 'three';
 
 function isAncestor(item, parent) {
 	do {
@@ -30,6 +30,8 @@ function hasDescendents(item, list) {
 }
 
 export default function Mouse(context, config) {
+	debug('initialize', config);
+	
 	var raycaster = new THREE.Raycaster();
 	var mouse = new THREE.Vector2();
 	mouse.buffer = 10;
