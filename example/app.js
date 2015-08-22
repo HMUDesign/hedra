@@ -6,7 +6,7 @@ import Mouse from 'hedra/plugins/mouse';
 import Resize from 'hedra/plugins/resize';
 import Keys from 'hedra/plugins/keys';
 
-import Cube from './cube';
+import Cube from './cube/cube';
 
 export default class App extends BaseApp {
 	static load() {
