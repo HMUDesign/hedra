@@ -3,6 +3,7 @@ let debug = Debug('hedra');
 
 import Emitter from 'emitter';
 import THREE from 'three';
+import TWEEN from 'tween';
 
 export default class Hedra extends Emitter {
 	constructor(config) {
@@ -66,7 +67,7 @@ export default class Hedra extends Emitter {
 			tween.easing(config.easing);
 		}
 		
-		var promise = new Promise(function(resolve, reject) {
+		var promise = new Promise(function(resolve) {
 			tween.onComplete(resolve);
 			tween.onStop(resolve);
 			tween.start(TWEEN._time);

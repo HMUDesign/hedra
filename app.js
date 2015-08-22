@@ -3,6 +3,7 @@ let debug = Debug('hedra:app');
 
 import Hedra from './hedra';
 import THREE from 'three';
+import TWEEN from 'tween';
 
 export default class App extends Hedra {
 	constructor(config) {
@@ -43,15 +44,21 @@ export default class App extends Hedra {
 		this.clock = new THREE.Clock(false);
 		
 		if(config.pause) {
-			window.addEventListener('focus', () => { this.play(); }, false);
-			window.addEventListener('blur', () => { this.pause(); }, false);
+			window.addEventListener('focus', () => {
+				this.play();
+			}, false);
+			
+			window.addEventListener('blur', () => {
+				this.pause();
+			}, false);
 		}
 		
-		setTimeout(() => { this.play(); }, 0);
+		setTimeout(() => {
+			this.play();
+		}, 0);
 		
-		
-		if(typeof Stats !== 'undefined') {
-			this.stats = new Stats();
+		if(typeof window.Stats !== 'undefined') {
+			this.stats = new window.Stats();
 			
 			this.stats.domElement.style.position = 'absolute';
 			this.stats.domElement.style.top  = '0';
@@ -93,7 +100,10 @@ export default class App extends Hedra {
 		this.bubble('update', delta || 0, time || 0);
 		
 		this.render();
-		if(this.stats) this.stats.update();
+		
+		if(this.stats) {
+			this.stats.update();
+		}
 	}
 	
 	render() {

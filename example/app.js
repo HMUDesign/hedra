@@ -16,6 +16,8 @@ export default class App extends BaseApp {
 	}
 	
 	constructor(config) {
+		debug('construct');
+		
 		super(config);
 		
 		Mouse(this, {  });
@@ -31,11 +33,11 @@ export default class App extends BaseApp {
 		});
 		
 		this.on('key').then((...items) => {
-			console.log('key', items)
+			console.log('key', items);
 		});
 		
 		this.on('key', 'NUMPAD0').then((...items) => {
-			console.log('numpad0', items)
+			console.log('numpad0', items);
 		});
 	}
 }

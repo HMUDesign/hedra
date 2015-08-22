@@ -6,8 +6,14 @@ import THREE from 'three';
 
 function isAncestor(item, parent) {
 	do {
-		if(parent === item) return true;
-	} while(item = item.parent);
+		if(parent === item) {
+			return true;
+		}
+		
+		item = item.parent;
+	}
+	while(item);
+	
 	return false;
 }
 
@@ -45,20 +51,22 @@ export default function Mouse(context, config) {
 			e.clientY < element.height - mouse.buffer
 		);
 		
-		mouse.x = (e.clientX / element.width) * 2 - 1;
-		mouse.y = - (e.clientY / element.height) * 2 + 1;
+		mouse.x =  (e.clientX / element.width) * 2 - 1;
+		mouse.y = -(e.clientY / element.height) * 2 + 1;
 	}, false);
 	
 	var hovered = [];
 	
-	document.body.addEventListener('click', (e) => {
+	document.body.addEventListener('click', () => {
 		hovered.map(function(item) {
 			item._.emit('click');
 		});
 	}, false);
 	
 	context.on('update').then(() => {
-		if(!mouse.active) return;
+		if(!mouse.active) {
+			return;
+		}
 		
 		raycaster.setFromCamera(mouse, context.camera);
 		
@@ -67,8 +75,13 @@ export default function Mouse(context, config) {
 		var items = [];
 		for(var item of intersects) {
 			item = item.object;
-			while(item && !(item._ instanceof Hedra)) item = item.parent;
-			if(!item) continue;
+			while(item && !(item._ instanceof Hedra)) {
+				item = item.parent;
+			}
+			
+			if(!item) {
+				continue;
+			}
 			
 			removeAncestors(item, items);
 			
