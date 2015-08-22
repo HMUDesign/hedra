@@ -10,7 +10,7 @@ import Cube from './cube/cube';
 
 export default class App extends BaseApp {
 	static load() {
-		return new Promise.all([
+		return Promise.all([
 			Cube.load(),
 		]);
 	}

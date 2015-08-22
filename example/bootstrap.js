@@ -1,5 +1,4 @@
-import debug from 'debug';
-window.debug = debug;
-
+import Bootstrap from 'hedra/bootstrap';
 import App from './app';
-window.app = new App({ parent: document.body });
+
+Bootstrap(App);
