@@ -1,11 +1,14 @@
 {
   "name": "hedra",
   "version": "0.0.0",
-  "main": "hedra.js",
+  "main": "hedra.jsx",
+  "homepage": "https://github.com/HMUDesign/hedra",
+  "author": {
+    "name": "Christopher Baker",
+    "email": "christopher@hmudesign.com"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/HMUDesign/hedra.git"
-  },
-  "author": "Christopher Baker <christopher@hmudesign.com>",
-  "homepage": "https://github.com/HMUDesign/hedra"
+  }
 }
