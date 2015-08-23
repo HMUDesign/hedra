@@ -5,7 +5,7 @@ import Hedra from './hedra';
 import THREE from 'three';
 import TWEEN from 'tween';
 
-export default class App extends Hedra {
+export default class HedraApp extends Hedra {
 	constructor(config) {
 		debug('construct', config);
 		

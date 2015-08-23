@@ -32,6 +32,7 @@ function reset(App) {
 
 function describeHedraApp(name, Thing, spec) {
 	describe(name, () => {
+		console.log(Thing.prototype.__proto__.constructor, HedraApp)
 		it('should extend Hedra/App.', () => {
 			assert.instanceOf(Thing.prototype, HedraApp);
 		});

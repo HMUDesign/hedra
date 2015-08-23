@@ -10,5 +10,21 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/HMUDesign/hedra.git"
+  },
+  "scripts": {
+    "test":  "webpack-dev-server --config webpack.test.js --content-base test/"
+  },
+  "peerDevDependencies": {
+    "babel-core": "5.8.x",
+    "babel-loader": "5.3.x",
+    "chai": "3.2.x",
+    "debug": "2.2.x",
+    "emitter": "HMUDesign/emitter",
+    "mocha": "2.2.x",
+    "mocha-loader": "0.7.x"
+  },
+  "devDependencies": {
+    "webpack": "1.11.x",
+    "webpack-dev-server": "1.10.x"
   }
 }
