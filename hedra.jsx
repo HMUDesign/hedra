@@ -89,4 +89,8 @@ export default class Hedra extends Emitter {
 	get rotation() {
 		return this._.rotation;
 	}
+	
+	get scale() {
+		return this._.scale;
+	}
 }
