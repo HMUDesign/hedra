@@ -44,6 +44,8 @@ export default class Hedra extends Emitter {
 		else {
 			throw new Error('Hedra.app.add: Child not an instance of `Hedra` or `THREE.Object3D`.');
 		}
+		
+		return this;
 	}
 	
 	bubble(...items) {
@@ -52,6 +54,8 @@ export default class Hedra extends Emitter {
 		for(let child of this.children) {
 			child.bubble(...items);
 		}
+		
+		return this;
 	}
 	
 	tween(config) {

@@ -6,10 +6,17 @@ import THREE from 'three';
 function resize(config) {
 	debug('resize');
 	
-	var event = {
-		width: window.innerWidth,
-		height: window.innerHeight,
-	};
+	var parent = this.renderer.domElement.parentNode;
+	var event = {};
+	
+	if(parent === document.body) {
+		event.width = window.innerWidth;
+		event.height = window.innerHeight;
+	}
+	else {
+		event.width = parent.offsetWidth;
+		event.height = parent.offsetHeight;
+	}
 	
 	this.bubble('resize', event);
 	

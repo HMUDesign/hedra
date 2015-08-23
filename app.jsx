@@ -13,8 +13,14 @@ export default class App extends Hedra {
 		config.parent = config.parent || document.body;
 		
 		if(!config.width && !config.height) {
-			config.width = window.innerWidth;
-			config.height = window.innerHeight;
+			if(config.parent === document.body) {
+				config.width = window.innerWidth;
+				config.height = window.innerHeight;
+			}
+			else {
+				config.width = config.parent.offsetWidth;
+				config.height = config.parent.offsetHeight;
+			}
 		}
 		
 		if(config.parent === document.body) {
@@ -80,12 +86,16 @@ export default class App extends Hedra {
 		
 		this.clock.start();
 		requestAnimationFrame(() => { this.animate(); });
+		
+		return this;
 	}
 	
 	pause() {
 		debug('pause');
 		
 		this.clock.stop();
+		
+		return this;
 	}
 	
 	animate() {
@@ -94,6 +104,8 @@ export default class App extends Hedra {
 		}
 		
 		this.frame(this.clock.getDelta(), this.clock.getElapsedTime());
+		
+		return this;
 	}
 	
 	frame(delta, time) {
@@ -104,9 +116,13 @@ export default class App extends Hedra {
 		if(this.stats) {
 			this.stats.update();
 		}
+		
+		return this;
 	}
 	
 	render() {
 		this.renderer.render(this.scene, this.camera);
+		
+		return this;
 	}
 }
