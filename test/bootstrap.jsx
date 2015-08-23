@@ -12,6 +12,24 @@ parent.style.top = '60px';
 parent.style.width = '50%';
 document.body.appendChild(parent);
 
+function reset(App) {
+	while(parent.childNodes.length) {
+		parent.removeChild(parent.childNodes[0]);
+	}
+	
+	if(App) {
+		return new App({ parent });
+	}
+	else {
+		let app = new HedraApp({ parent });
+		
+		app.camera.position.set(0, 0, 1.5);
+		app.camera.lookAt(app.scene.position);
+		
+		return app;
+	}
+}
+
 function describeHedraApp(name, Thing, spec) {
 	describe(name, () => {
 		it('should extend Hedra/App.', () => {
@@ -40,24 +58,6 @@ function describeHedra(name, Thing, spec) {
 		
 		spec();
 	});
-}
-
-function reset(App) {
-	while(parent.childNodes.length) {
-		parent.removeChild(parent.childNodes[0]);
-	}
-	
-	if(App) {
-		return new App({ parent });
-	}
-	else {
-		let app = new HedraApp({ parent });
-		
-		app.camera.position.set(0, 0, 1.5);
-		app.camera.lookAt(app.scene.position);
-		
-		return app;
-	}
 }
 
 export default { reset, describeHedraApp, describeHedra };
