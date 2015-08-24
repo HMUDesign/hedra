@@ -32,7 +32,6 @@ function reset(App) {
 
 function describeHedraApp(name, Thing, spec) {
 	describe(name, () => {
-		console.log(Thing.prototype.__proto__.constructor, HedraApp)
 		it('should extend Hedra/App.', () => {
 			assert.instanceOf(Thing.prototype, HedraApp);
 		});
@@ -61,4 +60,12 @@ function describeHedra(name, Thing, spec) {
 	});
 }
 
-export default { reset, describeHedraApp, describeHedra };
+export default {
+	reset,
+	describeHedraApp,
+	describeHedra,
+	
+	get parent() {
+		return parent;
+	},
+};

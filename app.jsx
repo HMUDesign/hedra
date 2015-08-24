@@ -85,7 +85,7 @@ export default class HedraApp extends Hedra {
 		debug('play');
 		
 		this.clock.start();
-		requestAnimationFrame(() => { this.animate(); });
+		requestAnimationFrame(() => { this._animate(); });
 		
 		return this;
 	}
@@ -98,17 +98,17 @@ export default class HedraApp extends Hedra {
 		return this;
 	}
 	
-	animate() {
+	_animate() {
 		if(this.clock.running) {
-			requestAnimationFrame(() => { this.animate(); });
+			requestAnimationFrame(() => { this._animate(); });
 		}
 		
-		this.frame(this.clock.getDelta(), this.clock.getElapsedTime());
+		this._frame(this.clock.getDelta(), this.clock.getElapsedTime());
 		
 		return this;
 	}
 	
-	frame(delta, time) {
+	_frame(delta, time) {
 		this.bubble('update', delta || 0, time || 0);
 		
 		this.render();
