@@ -5,7 +5,7 @@ import Hedra from '../hedra';
 
 var assert = require('chai').assert;
 
-describe('HedraApp', () => {
+describe('HedraApp Class', () => {
 	it('should extend Hedra.', () => {
 		assert.instanceOf(HedraApp.prototype, Hedra);
 	});
