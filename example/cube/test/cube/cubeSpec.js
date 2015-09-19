@@ -5,7 +5,7 @@ import Hedra from 'hedra';
 
 var assert = require('chai').assert;
 
-Bootstrap.describeHedra('Cube', Cube, () => {
+Bootstrap.describeHedra('Cube Class', Cube, () => {
 	describe('when Instantiated', () => {
 		let cube;
 		

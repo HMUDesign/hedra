@@ -4,7 +4,7 @@ import App from '../src/app';
 
 var assert = require('chai').assert;
 
-Bootstrap.describeHedraApp('App', App, () => {
+Bootstrap.describeHedraApp('App Class', App, () => {
 	describe('when Instantiated', () => {
 		let app;
 		
