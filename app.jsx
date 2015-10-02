@@ -25,6 +25,7 @@ export default class HedraApp extends Hedra {
 		
 		if(config.parent === document.body) {
 			document.body.style.margin = '0';
+			document.body.style.backgroundColor = 'gray';
 		}
 		
 		var scene = new THREE.Scene();
