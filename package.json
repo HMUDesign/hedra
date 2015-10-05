@@ -1,6 +1,6 @@
 {
   "name": "hedra",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "hedra.jsx",
   "homepage": "https://github.com/HMUDesign/hedra",
   "author": {
@@ -10,8 +10,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/HMUDesign/hedra.git"
-  },
-  "scripts": {
-    "test":  "webpack-dev-server --config webpack.test.js --content-base test/"
   }
 }
