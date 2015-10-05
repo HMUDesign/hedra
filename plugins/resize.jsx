@@ -26,14 +26,19 @@ function resize(config) {
 		this.camera.fov = config.y;
 		
 		var height = 2 * Math.tan(THREE.Math.degToRad(config.y / 2));
-		var _fovx = THREE.Math.radToDeg(2 * Math.atan(height * this.camera.aspect / 2));
+		event.fovx = THREE.Math.radToDeg(2 * Math.atan(height * this.camera.aspect / 2));
+		event.fovy = THREE.Math.radToDeg(2 * Math.atan(height / 2));
 		
-		if(_fovx < config.x) {
+		if(event.fovx < config.x) {
 			var width = 2 * Math.tan(THREE.Math.degToRad(config.x / 2));
-			var _fovy = THREE.Math.radToDeg(2 * Math.atan(width / this.camera.aspect / 2));
-			this.camera.fov = _fovy;
+			event.fovy = THREE.Math.radToDeg(2 * Math.atan(width / this.camera.aspect / 2));
+			event.fovx = THREE.Math.radToDeg(2 * Math.atan(width / 2));
+			
+			this.camera.fov = event.fovy;
 		}
 	}
+	
+	this.bubble('resize-post', event);
 	
 	this.camera.updateProjectionMatrix();
 	
