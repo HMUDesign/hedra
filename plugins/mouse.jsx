@@ -6,28 +6,28 @@ import THREE from 'three';
 
 function isAncestor(item, parent) {
 	do {
-		if(parent === item) {
+		if (parent === item) {
 			return true;
 		}
 		
 		item = item.parent;
 	}
-	while(item);
+	while (item);
 	
 	return false;
 }
 
 function removeAncestors(item, list) {
-	for(var j in list) {
-		if(isAncestor(item, list[j])) {
+	for (var j in list) {
+		if (isAncestor(item, list[j])) {
 			delete list[j];
 		}
 	}
 }
 
 function hasDescendents(item, list) {
-	for(var j in list) {
-		if(isAncestor(list[j], item)) {
+	for (var j in list) {
+		if (isAncestor(list[j], item)) {
 			return true;
 		}
 	}
@@ -45,10 +45,10 @@ export default function Mouse(context, config) {
 	var element = context.renderer.domElement;
 	document.body.addEventListener('mousemove', (e) => {
 		mouse.active = (
-			e.clientX > mouse.buffer &&
-			e.clientY > mouse.buffer &&
-			e.clientX < element.width - mouse.buffer &&
-			e.clientY < element.height - mouse.buffer
+			e.clientX > mouse.buffer
+			&& e.clientY > mouse.buffer
+			&& e.clientX < element.width - mouse.buffer
+			&& e.clientY < element.height - mouse.buffer
 		);
 		
 		mouse.x =  (e.clientX / element.width) * 2 - 1;
@@ -64,7 +64,7 @@ export default function Mouse(context, config) {
 	}, false);
 	
 	context.on('update').then(() => {
-		if(!mouse.active) {
+		if (!mouse.active) {
 			return;
 		}
 		
@@ -73,25 +73,25 @@ export default function Mouse(context, config) {
 		var intersects = raycaster.intersectObjects(context._.children, true);
 		
 		var items = [];
-		for(var item of intersects) {
+		for (var item of intersects) {
 			item = item.object;
-			while(item && !(item._ instanceof Hedra)) {
+			while (item && !(item._ instanceof Hedra)) {
 				item = item.parent;
 			}
 			
-			if(!item) {
+			if (!item) {
 				continue;
 			}
 			
 			removeAncestors(item, items);
 			
-			if(!hasDescendents(item, items)) {
+			if (!hasDescendents(item, items)) {
 				items.push(item);
 			}
 		}
 		
 		hovered = hovered.filter(function(item) {
-			if(items.indexOf(item) === -1) {
+			if (items.indexOf(item) === -1) {
 				item._.emit('mouseleave');
 				return false;
 			}
@@ -100,7 +100,7 @@ export default function Mouse(context, config) {
 		});
 		
 		items.filter(function(item) {
-			if(hovered.indexOf(item) === -1) {
+			if (hovered.indexOf(item) === -1) {
 				item._.emit('mouseenter');
 				hovered.push(item);
 			}

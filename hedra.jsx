@@ -6,26 +6,28 @@ import THREE from 'three';
 import TWEEN from 'tween';
 
 export default class Hedra extends Emitter {
+	static load() {
+		return Promise.resolve();
+	}
+	
 	constructor(config) {
 		debug('construct', config);
 		
-		if(config.make === false) {
+		if (config.make === false) {
 			delete config.make;
 		}
+		else if (config.geometry && config.material) {
+			config.make = new THREE.Mesh(config.geometry, config.material);
+		}
 		else {
-			if(config.geometry && config.material) {
-				config.make = new THREE.Mesh(config.geometry, config.material);
-			}
-			else {
-				config.make = new THREE.Object3D();
-			}
+			config.make = new THREE.Object3D();
 		}
 		
 		super();
 		
 		this.children = [];
 		
-		if(config.make) {
+		if (config.make) {
 			this._ = config.make;
 			this._._ = this;
 		}
@@ -34,11 +36,11 @@ export default class Hedra extends Emitter {
 	add(child) {
 		debug('add', child);
 		
-		if(child instanceof Hedra) {
+		if (child instanceof Hedra) {
 			this.children.push(child);
 			this._.add(child._);
 		}
-		else if(child instanceof THREE.Object3D) {
+		else if (child instanceof THREE.Object3D) {
 			this._.add(child);
 		}
 		else {
@@ -51,7 +53,7 @@ export default class Hedra extends Emitter {
 	bubble(...items) {
 		this.emit(...items);
 		
-		for(let child of this.children) {
+		for (let child of this.children) {
 			child.bubble(...items);
 		}
 		
@@ -63,11 +65,11 @@ export default class Hedra extends Emitter {
 		
 		var tween = new TWEEN.Tween(config.object || this);
 		
-		if(config.to && config.duration) {
+		if (config.to && config.duration) {
 			tween.to(config.to, config.duration);
 		}
 		
-		if(config.easing) {
+		if (config.easing) {
 			tween.easing(config.easing);
 		}
 		

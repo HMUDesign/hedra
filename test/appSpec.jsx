@@ -1,3 +1,5 @@
+/* globals describe it */
+
 import Bootstrap from './bootstrap';
 
 import HedraApp from '../app';
@@ -41,7 +43,7 @@ describe('HedraApp Class', () => {
 			assert.isFunction(app.pause);
 		});
 		
-		let result;
+		let result = null;
 		it('should pause the clock', () => {
 			result = app.pause();
 			assert.isFalse(app.clock.running);
@@ -57,7 +59,7 @@ describe('HedraApp Class', () => {
 			assert.isFunction(app.play);
 		});
 		
-		let result;
+		let result = null;
 		it('should resume the clock', () => {
 			result = app.play();
 			assert.isTrue(app.clock.running);
@@ -73,13 +75,13 @@ describe('HedraApp Class', () => {
 			assert.isFunction(app.render);
 		});
 		
-		let result;
+		let result = null;
 		it('should call renderer.render', (done) => {
 			app.pause();
 			
 			app.renderer.render = () => {
 				done();
-			}
+			};
 			
 			result = app.render();
 		});

@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
 	target: 'web',
@@ -11,7 +12,7 @@ module.exports = {
 	
 	entry:  './test/Spec.jsx',
 	output: {
-		path: __dirname + '/public',
+		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js',
 	},
 	
@@ -38,8 +39,8 @@ module.exports = {
 	},
 	
 	resolve: {
-		extensions: ['', '.js', '.jsx'],
-		modulesDirectories: ['node_modules'],
+		extensions: [ '', '.js', '.jsx' ],
+		modulesDirectories: [ 'node_modules' ],
 	},
 	
 	stats: {

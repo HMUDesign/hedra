@@ -1,3 +1,5 @@
+/* globals describe, it */
+
 import HedraApp from '../app';
 import Hedra from '../hedra';
 
@@ -13,11 +15,11 @@ parent.style.width = '50%';
 document.body.appendChild(parent);
 
 function reset(App) {
-	while(parent.childNodes.length) {
+	while (parent.childNodes.length) {
 		parent.removeChild(parent.childNodes[0]);
 	}
 	
-	if(App) {
+	if (App) {
 		return new App({ parent });
 	}
 	else {

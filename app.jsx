@@ -12,8 +12,8 @@ export default class HedraApp extends Hedra {
 		config.make = false;
 		config.parent = config.parent || document.body;
 		
-		if(!config.width && !config.height) {
-			if(config.parent === document.body) {
+		if (!config.width && !config.height) {
+			if (config.parent === document.body) {
 				config.width = window.innerWidth;
 				config.height = window.innerHeight;
 			}
@@ -23,7 +23,7 @@ export default class HedraApp extends Hedra {
 			}
 		}
 		
-		if(config.parent === document.body) {
+		if (config.parent === document.body) {
 			document.body.style.margin = '0';
 			document.body.style.backgroundColor = 'gray';
 		}
@@ -31,7 +31,7 @@ export default class HedraApp extends Hedra {
 		var scene = new THREE.Scene();
 		
 		var camera = new THREE.PerspectiveCamera(75, config.width / config.height, 0.1, 1000);
-		camera.position.copy(config.camera || new THREE.Vector3(0,0,0));
+		camera.position.copy(config.camera || new THREE.Vector3(0, 0, 0));
 		
 		var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 		renderer.setClearColor(0x000000, 0);
@@ -50,7 +50,7 @@ export default class HedraApp extends Hedra {
 		
 		this.clock = new THREE.Clock(false);
 		
-		if(config.pause) {
+		if (config.pause) {
 			window.addEventListener('focus', () => {
 				this.play();
 			}, false);
@@ -64,7 +64,7 @@ export default class HedraApp extends Hedra {
 			this.play();
 		}, 0);
 		
-		if(typeof window.Stats !== 'undefined') {
+		if (typeof window.Stats !== 'undefined') {
 			this.stats = new window.Stats();
 			
 			this.stats.domElement.style.position = 'absolute';
@@ -73,7 +73,7 @@ export default class HedraApp extends Hedra {
 			config.parent.appendChild(this.stats.domElement);
 		}
 		
-		if(typeof TWEEN !== 'undefined') {
+		if (typeof TWEEN !== 'undefined') {
 			TWEEN._time = 0;
 			this.on('update').then((e) => {
 				TWEEN._time = e.time;
@@ -86,7 +86,9 @@ export default class HedraApp extends Hedra {
 		debug('play');
 		
 		this.clock.start();
-		requestAnimationFrame(() => { this._animate(); });
+		requestAnimationFrame(() => {
+			this._animate();
+		});
 		
 		return this;
 	}
@@ -100,8 +102,10 @@ export default class HedraApp extends Hedra {
 	}
 	
 	_animate() {
-		if(this.clock.running) {
-			requestAnimationFrame(() => { this._animate(); });
+		if (this.clock.running) {
+			requestAnimationFrame(() => {
+				this._animate();
+			});
 		}
 		
 		this._frame(this.clock.getDelta(), this.clock.getElapsedTime());
@@ -114,7 +118,7 @@ export default class HedraApp extends Hedra {
 		
 		this.render();
 		
-		if(this.stats) {
+		if (this.stats) {
 			this.stats.update();
 		}
 		

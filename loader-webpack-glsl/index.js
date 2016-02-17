@@ -7,27 +7,27 @@ module.exports = function(contents) {
 	var source = [];
 	
 	var parts = contents.split(regex_include);
-	while(parts.length) {
+	while (parts.length) {
 		var line = parts.shift();
 		
-		if(line.trim()) {
+		if (line.trim()) {
 			source.push(JSON.stringify(line));
 		}
 		
-		if(parts.shift()) {
+		if (parts.shift()) {
 			var file = parts.shift();
 			var delimiter = parts.shift();
 			
 			source.push('import' + imports.length);
 			
-			if(delimiter === '"') {
+			if (delimiter === '"') {
 				file = './' + file;
 			}
 			else {
 				file = 'shaders/' + file;
 			}
 			
-			imports.push('var import' + imports.length + ' = require("' + file + '");')
+			imports.push('var import' + imports.length + ' = require("' + file + '");');
 		}
 	}
 	
@@ -37,8 +37,8 @@ module.exports = function(contents) {
 	
 	return []
 		.concat(imports)
-		.concat([''])
-		.concat(['module.exports = [' + source.join(',') + '].join("");'])
+		.concat([ '' ])
+		.concat([ 'module.exports = [' + source.join(',') + '].join("");' ])
 		.join('\n')
 		.trim();
 };

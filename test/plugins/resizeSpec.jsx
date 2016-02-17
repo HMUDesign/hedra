@@ -1,3 +1,5 @@
+/* globals describe it */
+
 import Bootstrap from '../bootstrap';
 
 import HedraApp from '../../app';
@@ -13,8 +15,8 @@ describe('Resize Plugin', () => {
 	let app = new HedraApp({ parent: Bootstrap.parent });
 	
 	describe('when Used', () => {
-		it('should ...'/*, () => {
-			assert.isObject(app.camera);
-		}*/);
+		it('should ...', () => {
+			assert.isObject(app);
+		});
 	});
 });
