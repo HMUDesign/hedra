@@ -9,7 +9,7 @@ export default class HedraApp extends Hedra {
 	constructor(config) {
 		debug('construct', config);
 		
-		config.make = false;
+		config.type = false;
 		config.parent = config.parent || document.body;
 		
 		if (!config.width && !config.height) {

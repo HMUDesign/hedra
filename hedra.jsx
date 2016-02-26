@@ -13,14 +13,26 @@ export default class Hedra extends Emitter {
 	constructor(config) {
 		debug('construct', config);
 		
-		if (config.make === false) {
-			delete config.make;
+		if (typeof config.type === 'undefined') {
+			config.type = 'mesh';
 		}
-		else if (config.geometry && config.material) {
-			config.make = new THREE.Mesh(config.geometry, config.material);
-		}
-		else {
-			config.make = new THREE.Object3D();
+		
+		switch (config.type) {
+			case 'mesh':
+				config.make = new THREE.Mesh(config.geometry, config.material);
+				break;
+			
+			case 'line':
+				config.make = new THREE.Line(config.geometry, config.material);
+				break;
+			
+			case 'lines':
+				config.make = new THREE.LineSegments(config.geometry, config.material);
+				break;
+			
+			default:
+				config.make = new THREE.Object3D();
+				break;
 		}
 		
 		super();
