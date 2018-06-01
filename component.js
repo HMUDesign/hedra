@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { Object3D, Mesh } from 'three';
 import Emitter from '@hmudesign/emitter';
 import TWEEN from '@tweenjs/tween.js';
 
@@ -16,10 +16,6 @@ class TweenPromise extends Promise {
 }
 
 export default class HedraComponent extends Emitter {
-	static load() {
-		return Promise.resolve();
-	}
-
 	constructor(config) {
 		if (typeof config.type === 'undefined') {
 			config.type = 'mesh';
@@ -31,14 +27,14 @@ export default class HedraComponent extends Emitter {
 			case 'mesh':
 				this.geometry = config.geometry;
 				this.material = config.material;
-				this._ = new THREE.Mesh(this.geometry, this.material);
+				this._ = new Mesh(this.geometry, this.material);
 				break;
 
 			case 'object':
-				this._ = new THREE.Object3D();
+				this._ = new Object3D();
 				break;
 
-			case 'app':
+			case null:
 				break;
 
 			default:
@@ -46,6 +42,10 @@ export default class HedraComponent extends Emitter {
 		}
 
 		this.children = [];
+
+		if (this._) {
+			this._._ = this;
+		}
 	}
 
 	add(child) {
@@ -53,11 +53,11 @@ export default class HedraComponent extends Emitter {
 			this.children.push(child);
 			this._.add(child._);
 		}
-		else if (child instanceof THREE.Object3D) {
+		else if (child instanceof Object3D) {
 			this._.add(child);
 		}
 		else {
-			throw new Error('HedraComponent: Child not an instance of `Hedra` or `THREE.Object3D`.');
+			throw new Error('HedraComponent: Child not an instance of `Hedra` or `Object3D`.');
 		}
 
 		return this;

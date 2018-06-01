@@ -1,72 +1,103 @@
-import * as THREE from 'three';
+import { Raycaster, Vector2 } from 'three';
 import HedraComponent from '../component';
 
 export default function pluginMouse(context) {
-	const raycaster = new THREE.Raycaster();
-	const mouse = new THREE.Vector2();
-	mouse.buffer = 10;
+	const raycaster = new Raycaster();
+	const mouse = new Vector2();
 
 	const element = context.renderer.domElement;
 	document.body.addEventListener('mousemove', (e) => {
 		mouse.active = (
-			e.clientX > mouse.buffer &&
-			e.clientY > mouse.buffer &&
-			e.clientX < element.width - mouse.buffer &&
-			e.clientY < element.height - mouse.buffer
+			e.clientX > 0 &&
+			e.clientY > 0 &&
+			e.clientX < element.offsetWidth &&
+			e.clientY < element.offsetHeight
 		);
 
-		mouse.x =  (e.clientX / element.width) * 2 - 1;
-		mouse.y = -(e.clientY / element.height) * 2 + 1;
-	}, false);
+		const mouseX =  (e.clientX / element.offsetWidth) * 2 - 1;
+		const mouseY = -(e.clientY / element.offsetHeight) * 2 + 1;
 
-	let hovered = [];
+		if (mouse.x !== mouseX) {
+			mouse.dirty = true;
+			mouse.x = mouseX;
+		}
 
-	document.body.addEventListener('click', () => {
-		for (const item of hovered) {
-			item._.emit('click');
+		if (mouse.y !== mouseY) {
+			mouse.dirty = true;
+			mouse.y = mouseY;
 		}
 	}, false);
 
-	context.on('update').then(() => {
+	let hoveredLast = [];
+
+	document.body.addEventListener('click', () => {
+		for (const event of hoveredLast) {
+			event.target._.bubble('click', event);
+		}
+	}, false);
+
+	document.body.addEventListener('mousedown', () => {
+		for (const event of hoveredLast) {
+			event.target._.bubble('mousedown', event);
+		}
+	}, false);
+
+	document.body.addEventListener('mouseup', () => {
+		for (const event of hoveredLast) {
+			event.target._.bubble('mouseup', event);
+		}
+	}, false);
+
+	context.on('update', () => {
 		if (!mouse.active) {
 			return;
 		}
 
 		raycaster.setFromCamera(mouse, context.camera);
-
 		const intersects = raycaster.intersectObjects(context._.children, true);
 
-		const items = [];
-		for (let item of intersects) {
-			item = item.object;
+		const hoveredNext = [];
+		for (const { object, distance, point, uv } of intersects) {
+			let item = object;
 			while (item && !(item._ instanceof HedraComponent)) {
 				item = item.parent;
 			}
-
 			if (!item) {
 				continue;
 			}
 
-			removeAncestors(item, items);
+			removeAncestors(item, hoveredNext);
 
-			if (!hasDescendents(item, items)) {
-				items.push(item);
+			if (!hasDescendents(item, hoveredNext)) {
+				hoveredNext.push({
+					target: item,
+					rawTarget: object,
+					distance,
+					point,
+					uv,
+				});
 			}
 		}
 
-		hovered = hovered.filter((item) => {
-			if (items.indexOf(item) === -1) {
-				item._.emit('mouseleave');
-				return false;
+		for (const event of hoveredLast) {
+			if (!hoveredNext.find(({ target }) => target === event.target)) {
+				event.target._.bubble('mouseleave', event);
 			}
+		}
 
-			return true;
-		});
+		for (const event of hoveredNext) {
+			if (!hoveredLast.find(({ target }) => target === event.target)) {
+				event.target._.bubble('mouseenter', event);
+			}
+		}
 
-		for (const item of items) {
-			if (!hovered.includes(item)) {
-				item._.emit('mouseenter');
-				hovered.push(item);
+		hoveredLast = hoveredNext;
+
+		if (mouse.dirty) {
+			mouse.dirty = false;
+
+			for (const event of hoveredLast) {
+				event.target._.bubble('mousemove', event);
 			}
 		}
 	});
@@ -74,7 +105,7 @@ export default function pluginMouse(context) {
 
 function isAncestor(item, parent) {
 	do {
-		if (parent === item) {
+		if (item === parent) {
 			return true;
 		}
 
@@ -86,16 +117,16 @@ function isAncestor(item, parent) {
 }
 
 function removeAncestors(item, list) {
-	for (const j in list) {
-		if (isAncestor(item, list[j])) {
-			delete list[j];
+	for (let i = list.length - 1; i >= 0; i--) {
+		if (isAncestor(item, list[i].target)) {
+			list.splice(i, 1);
 		}
 	}
 }
 
 function hasDescendents(item, list) {
-	for (const j in list) {
-		if (isAncestor(list[j], item)) {
+	for (let i = list.length - 1; i >= 0; i--) {
+		if (isAncestor(list[i].target, item)) {
 			return true;
 		}
 	}

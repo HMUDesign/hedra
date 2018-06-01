@@ -1,22 +1,16 @@
-import * as THREE from 'three';
+import { PerspectiveCamera, Scene, WebGLRenderer, Clock, Vector3 } from 'three';
 import Stats from 'stats.js';
 import TWEEN from '@tweenjs/tween.js';
 import HedraComponent from './component';
 
 export default class HedraApp extends HedraComponent {
 	constructor(config) {
-		config.type = 'app';
+		config.type = null;
 		config.parent = config.parent || document.body;
 
 		if (!config.width && !config.height) {
-			if (config.parent === document.body) {
-				config.width = window.innerWidth;
-				config.height = window.innerHeight;
-			}
-			else {
-				config.width = config.parent.offsetWidth;
-				config.height = config.parent.offsetHeight;
-			}
+			config.width  = parent === document.body ? window.innerWidth  : parent.offsetWidth;
+			config.height = parent === document.body ? window.innerHeight : parent.offsetHeight;
 		}
 
 		super(config);
@@ -30,13 +24,13 @@ export default class HedraApp extends HedraComponent {
 			config.parent.appendChild(this.stats.domElement);
 		}
 
-		this.camera = new THREE.PerspectiveCamera(75, config.width / config.height, 0.1, 1000);
-		this.camera.position.copy(config.camera || new THREE.Vector3(0, 0, 0));
+		this.camera = new PerspectiveCamera(75, config.width / config.height, 0.1, 1000);
+		this.camera.position.copy(config.camera || new Vector3(0, 0, 0));
 
-		this.scene = this._ = new THREE.Scene();
+		this.scene = this._ = new Scene();
 		this.scene.add(this.camera);
 
-		this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+		this.renderer = new WebGLRenderer({ alpha: true, antialias: true });
 		this.renderer.setClearColor(0x000000, 0);
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(config.width, config.height);
@@ -44,7 +38,7 @@ export default class HedraApp extends HedraComponent {
 		this.renderer.domElement.style.display = 'block';
 		config.parent.appendChild(this.renderer.domElement);
 
-		this.clock = new THREE.Clock(false);
+		this.clock = new Clock(false);
 
 		if (config.pause) {
 			window.addEventListener('focus', this.play, false);
@@ -104,7 +98,7 @@ export default class HedraApp extends HedraComponent {
 	}
 
 	render(delta = 0, time = 0) {
-		this.bubble('update', delta, time);
+		this.bubble('update', { delta, time });
 
 		this.renderer.render(this.scene, this.camera);
 
