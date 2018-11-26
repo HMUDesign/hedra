@@ -17,8 +17,10 @@ class TweenPromise extends Promise {
 
 export default class HedraComponent extends Emitter {
 	constructor(config) {
+		config = config || {};
+
 		if (typeof config.type === 'undefined') {
-			config.type = 'mesh';
+			config.type = 'object';
 		}
 
 		super();

@@ -1,6 +1,6 @@
 import App from './app';
 import Component from './component';
-import plugins from './plugins';
+import * as plugins from './plugins';
 
 export {
 	App,

@@ -19,11 +19,14 @@
     "release:major": "npm version major && npm publish"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1"
+    "@babel/core": "7.1.0",
+    "babel-eslint": "9.0.0",
+    "babel-jest": "23.6.0",
+    "eslint": "5.6.0"
   },
   "dependencies": {
-    "@hmudesign/emitter": "^0.1.0"
+    "@hmudesign/emitter": "^0.3.0",
+    "stats.js": "^0.17.0"
   },
   "peerDependencies": {
     "@tweenjs/tween.js": "^17.2.0"
