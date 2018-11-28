@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { BoxGeometry, MeshNormalMaterial } from 'three';
+import React from 'react';
+import { Component, HedraObject } from '@hmudesign/hedra';
 
-import { HedraObject } from '@hmudesign/hedra';
+import { BoxGeometry, MeshNormalMaterial } from 'three';
 
 export default class Cube extends Component {
 	static propTypes = {
@@ -18,16 +18,26 @@ export default class Cube extends Component {
 		this.material = new MeshNormalMaterial();
 	}
 
-	handleUpdate1 = ({ target, delta }) => {
-		target.rotation.z += Math.PI / 2 * delta;
+	state = {
+		x: 0,
+		z: 0,
 	}
 
-	handleUpdate2 = ({ target, delta }) => {
-		target.rotation.x += Math.PI / 2 * delta;
+	componentWillDraw(delta) {
+		const { x, z } = this.state;
+		this.setState({
+			x: x + Math.PI / 2 * delta,
+			z: z + Math.PI / 2 * delta,
+		});
+	}
+
+	handleClick = ({ target }) => {
+		console.log('clicked!'); // eslint-disable-line no-console
 	}
 
 	render() {
 		const props = _.omit(this.props, [ 'size' ]);
+		const { x, z } = this.state;
 
 		return (
 			<HedraObject
@@ -37,16 +47,17 @@ export default class Cube extends Component {
 				geometry={this.geometry}
 				material={this.material}
 
-				onUpdate={this.handleUpdate1}
+				onUpdate={this.handleUpdate}
+
+				rotation={[ 0, 0, z ]}
 			>
 				<HedraObject
 					type="Mesh"
 					geometry={this.geometry}
 					material={this.material}
 
-					onUpdate={this.handleUpdate2}
-
 					position={[ 1, 0, 0 ]}
+					rotation={[ x, 0, 0 ]}
 				/>
 			</HedraObject>
 		);

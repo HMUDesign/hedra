@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { updateVector3, updateEuler } from './lib/updaters';
+import {
+	getPropTypes as getPropTypesForPlugins,
+	setup as setupPlugins,
+	update as updatePlugins,
+	teardown as teardownPlugins,
+} from './plugins';
 
 import { HedraContextType, HedraContextProvider } from './context';
 import { Object3D, Mesh, Vector3, Euler } from 'three';
@@ -30,8 +36,6 @@ export default class HedraObject extends Component {
 		children: PropTypes.node,
 		type: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
 
-		onUpdate: PropTypes.func,
-
 		position: PropTypes.oneOfType([
 			PropTypes.instanceOf(Vector3),
 			PropTypes.instanceOf(Array),
@@ -45,6 +49,8 @@ export default class HedraObject extends Component {
 			PropTypes.instanceOf(Array),
 			PropTypes.number,
 		]),
+
+		...getPropTypesForPlugins(),
 	}
 
 	static defaultProps = {
@@ -56,7 +62,6 @@ export default class HedraObject extends Component {
 
 		const { type } = this.props;
 		this._ = TYPES[type](this.props);
-		this._._ = this;
 
 		const { position, rotation, scale } = this.props;
 		if (typeof position !== 'undefined') {
@@ -71,10 +76,7 @@ export default class HedraObject extends Component {
 	}
 
 	componentDidMount() {
-		const { onUpdate } = this.props;
-		if (typeof onUpdate !== 'undefined') {
-			this._.addEventListener('update', onUpdate);
-		}
+		setupPlugins(this._, this.props);
 
 		const parent = this.context;
 		parent.add(this._);
@@ -84,16 +86,6 @@ export default class HedraObject extends Component {
 		const { type } = this.props;
 		if (type !== props.type) {
 			console.error('A HedraObject component is changing type. Once a HedraObject component is rendered, it\'s type must not change.'); // eslint-disable-line no-console
-		}
-
-		const { onUpdate } = this.props;
-		if (onUpdate !== props.onUpdate) {
-			if (typeof onUpdate !== 'undefined') {
-				this._.removeEventListener('update', onUpdate);
-			}
-			if (typeof props.onUpdate !== 'undefined') {
-				this._.addEventListener('update', props.onUpdate);
-			}
 		}
 
 		const { position, rotation, scale } = this.props;
@@ -112,16 +104,15 @@ export default class HedraObject extends Component {
 				this.scale = props.scale;
 			}
 		}
+
+		updatePlugins(this._, this.props, props);
 	}
 
 	componentWillUnmount() {
 		const parent = this.context;
 		parent.remove(this._);
 
-		const { onUpdate } = this.props;
-		if (typeof onUpdate !== 'undefined') {
-			this._.removeEventListener('update', onUpdate);
-		}
+		teardownPlugins(this._, this.props);
 	}
 
 	get position() {

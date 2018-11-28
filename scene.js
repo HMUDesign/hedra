@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { HedraContextProvider } from './context';
+
+import { notify as notifyPlugins } from './plugins';
 import { updateVector3 } from './lib/updaters';
 
-import { HedraContextProvider } from './context';
 import { PerspectiveCamera, Camera, Scene, WebGLRenderer, Clock, Vector3 } from 'three';
 import Stats from 'stats.js';
 import TWEEN from '@tweenjs/tween.js';
@@ -158,10 +160,16 @@ export default class HedraScene extends Component {
 	play = () => {
 		this.clock.start();
 		requestAnimationFrame(this._draw);
+
+		const time = this.clock.getElapsedTime();
+		notifyPlugins({ type: 'play', app: this, time });
 	}
 
 	pause = () => {
 		this.clock.stop();
+
+		const time = this.clock.getElapsedTime();
+		notifyPlugins({ type: 'pause', app: this, time });
 	}
 
 	resize = () => {
@@ -185,9 +193,10 @@ export default class HedraScene extends Component {
 		const time = this.clock.getElapsedTime();
 
 		TWEEN.update(time);
-		prepareDraw(this.scene, { type: 'update', delta, time });
 
+		notifyPlugins({ type: 'draw:pre', app: this, delta, time });
 		this.renderer.render(this.scene, this.camera);
+		notifyPlugins({ type: 'draw:post', app: this, delta, time });
 
 		if (this.stats) {
 			this.stats.update();
@@ -204,14 +213,5 @@ export default class HedraScene extends Component {
 				</div>
 			</HedraContextProvider>
 		);
-	}
-}
-
-function prepareDraw(object, event) {
-	for (const child of object.children) {
-		event.target = child;
-		child.dispatchEvent(event);
-
-		prepareDraw(child, event);
 	}
 }
