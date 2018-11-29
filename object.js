@@ -62,6 +62,7 @@ export default class HedraObject extends Component {
 
 		const { type } = this.props;
 		this._ = TYPES[type](this.props);
+		this._._ = this;
 
 		const { position, rotation, scale } = this.props;
 		if (typeof position !== 'undefined') {

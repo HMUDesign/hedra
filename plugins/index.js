@@ -1,8 +1,10 @@
 import { EventDispatcher } from 'three';
 
+import * as mousePlugin from './mouse';
 import * as updatePlugin from './update';
 
 const plugins = [
+	mousePlugin,
 	updatePlugin,
 ];
 

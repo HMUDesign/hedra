@@ -139,6 +139,8 @@ export default class HedraScene extends Component {
 			if (this.stats) {
 				el.appendChild(this.stats.domElement);
 			}
+
+			notifyPlugins({ type: 'mount', app: this });
 		}
 		else {
 			this.renderer.domElement.remove();
@@ -146,6 +148,8 @@ export default class HedraScene extends Component {
 			if (this.stats) {
 				this.stats.domElement.remove();
 			}
+
+			notifyPlugins({ type: 'unmount', app: this });
 		}
 	}
 

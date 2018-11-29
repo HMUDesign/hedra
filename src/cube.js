@@ -32,7 +32,7 @@ export default class Cube extends Component {
 	}
 
 	handleClick = ({ target }) => {
-		console.log('clicked!'); // eslint-disable-line no-console
+		console.log('clicked!', target); // eslint-disable-line no-console
 	}
 
 	render() {
@@ -47,7 +47,7 @@ export default class Cube extends Component {
 				geometry={this.geometry}
 				material={this.material}
 
-				onUpdate={this.handleUpdate}
+				onClick={this.handleClick}
 
 				rotation={[ 0, 0, z ]}
 			>
