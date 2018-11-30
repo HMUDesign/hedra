@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Component, HedraObject } from '@hmudesign/hedra';
+import { TextureLoader, BoxGeometry, MeshPhongMaterial } from 'three';
 
-import { BoxGeometry, MeshNormalMaterial } from 'three';
+import crateTexture from './assets/crate.gif';
+
+import { Component, Mesh } from '@hmudesign/hedra';
 
 export default class Cube extends Component {
 	static propTypes = {
@@ -15,7 +17,10 @@ export default class Cube extends Component {
 
 		const { size } = this.props;
 		this.geometry = new BoxGeometry(size, size, size);
-		this.material = new MeshNormalMaterial();
+
+		const textureLoader = new TextureLoader();
+		const texture = textureLoader.load(crateTexture);
+		this.material = new MeshPhongMaterial({ color: 0xffffff, map: texture });
 	}
 
 	state = {
@@ -40,26 +45,22 @@ export default class Cube extends Component {
 		const { x, z } = this.state;
 
 		return (
-			<HedraObject
+			<Mesh
 				{...props}
-
-				type="Mesh"
 				geometry={this.geometry}
 				material={this.material}
 
-				onClick={this.handleClick}
-
 				rotation={[ 0, 0, z ]}
+				onClick={this.handleClick}
 			>
-				<HedraObject
-					type="Mesh"
+				<Mesh
 					geometry={this.geometry}
 					material={this.material}
 
 					position={[ 1, 0, 0 ]}
 					rotation={[ x, 0, 0 ]}
 				/>
-			</HedraObject>
+			</Mesh>
 		);
 	}
 }
