@@ -40,6 +40,10 @@ export default class Cube extends Component {
 		console.log('clicked!', target); // eslint-disable-line no-console
 	}
 
+	handleKeyPress = (event) => {
+		console.log('keypress', event); // eslint-disable-line no-console
+	}
+
 	render() {
 		const props = _.omit(this.props, [ 'size' ]);
 		const { x, z } = this.state;
@@ -47,13 +51,16 @@ export default class Cube extends Component {
 		return (
 			<Mesh
 				{...props}
+				name="center cube"
 				geometry={this.geometry}
 				material={this.material}
 
 				rotation={[ 0, 0, z ]}
 				onClick={this.handleClick}
+				onKeyPress={this.handleKeyPress}
 			>
 				<Mesh
+					name="offset cube"
 					geometry={this.geometry}
 					material={this.material}
 

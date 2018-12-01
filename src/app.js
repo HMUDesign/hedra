@@ -8,7 +8,7 @@ export default class App extends Component {
 		return (
 			<Scene
 				stats
-				fullscreen
+				resize
 				camera={[ 0, 0, 2 ]}
 			>
 				<AmbientLight
