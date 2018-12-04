@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
-import { Geometry, Material, Vector3, Euler } from 'three';
+import { Object3D, Geometry, BufferGeometry, Material, Vector3, Euler } from 'three';
 
 export default {
-	geometry: PropTypes.instanceOf(Geometry),
+	object3d: PropTypes.instanceOf(Object3D),
+	geometry: PropTypes.oneOfType([
+		PropTypes.instanceOf(Geometry),
+		PropTypes.instanceOf(BufferGeometry),
+	]),
 	material: PropTypes.instanceOf(Material),
 	color: PropTypes.oneOfType([
 		PropTypes.number,

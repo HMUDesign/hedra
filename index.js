@@ -3,6 +3,7 @@ import Scene from './lib/scene';
 
 import Object3D from './lib/object3d';
 import Mesh from './lib/mesh';
+import Raw from './lib/raw';
 
 import AmbientLight from './lib/ambient-light';
 import DirectionalLight from './lib/directional-light';
@@ -17,6 +18,7 @@ export {
 
 	Object3D,
 	Mesh,
+	Raw,
 
 	AmbientLight,
 	DirectionalLight,
