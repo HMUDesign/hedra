@@ -1,6 +1,10 @@
 import { Vector2, Vector3, Euler } from 'three'
 
 export function updateVector2(target, source) {
+  if (!source) {
+    return target
+  }
+
   if (source instanceof Vector2) {
     return target.copy(source)
   }
@@ -17,6 +21,10 @@ export function updateVector2(target, source) {
 }
 
 export function updateVector3(target, source) {
+  if (!source) {
+    return target
+  }
+
   if (source instanceof Vector3) {
     return target.copy(source)
   }
@@ -33,6 +41,10 @@ export function updateVector3(target, source) {
 }
 
 export function updateEuler(target, source) {
+  if (!source) {
+    return target
+  }
+
   if (source instanceof Euler) {
     return target.copy(source)
   }

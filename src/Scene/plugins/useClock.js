@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { Clock } from 'three'
 
-import { useHedra } from '../../helpers/context'
+import { useParent } from '../../helpers/context'
 
 export default function useClock() {
-  const hedra = useHedra()
+  const hedra = useParent()
 
   if (!hedra.clock) {
     hedra.clock = true

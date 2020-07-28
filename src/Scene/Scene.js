@@ -1,34 +1,20 @@
-/* eslint-disable react/destructuring-assignment */
-
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { Scene } from 'three'
 
 import { HedraProvider } from '../helpers/context'
+import useHedra from '../useHedra'
 
 export default function HedraScene({ children }) {
   const canvas = useRef()
+  const three = useMemo(() => new Scene(), [])
 
-  const context = useRef()
-  if (!context.current) {
-    const scene = new Scene()
-
-    context.current = {
-      plugins: {},
-      canvas,
-      scene,
-      add(child) {
-        return scene.add(child)
-      },
-      remove(child) {
-        return scene.remove(child)
-      },
-    }
-  }
+  const hedra = useHedra(three)
+  hedra.canvas = canvas
 
   return (
-    <HedraProvider value={context.current}>
-      <canvas ref={canvas} />
+    <HedraProvider hedra={hedra}>
+      <canvas ref={canvas} width={300} height={300} />
       {children}
     </HedraProvider>
   )

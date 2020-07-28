@@ -1,4 +1,6 @@
+import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
+import useHedra from './useHedra'
 
 import useCamera from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
@@ -6,7 +8,7 @@ import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
 
 // import Raw from './Raw/Raw'
 // import Object3D from './Object3d/Object3d'
-// import Mesh from './Mesh/Mesh'
+import Mesh from './Mesh/Mesh'
 
 // import AmbientLight from './lights/AmbientLight/AmbientLight'
 // import DirectionalLight from './lights/DirectionalLight/DirectionalLight'
@@ -16,7 +18,9 @@ import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
 // import SpotLight from './lights/SpotLight/SpotLight'
 
 export {
+  ThreePropTypes,
   Scene,
+  useHedra,
 
   useCamera,
   useClock,
@@ -24,7 +28,7 @@ export {
 
   // Raw,
   // Object3D,
-  // Mesh,
+  Mesh,
 
   // AmbientLight,
   // DirectionalLight,

@@ -3,9 +3,9 @@ import React, { useContext } from 'react'
 
 const Context = React.createContext()
 
-export function HedraProvider({ value, children }) {
+export function HedraProvider({ hedra, children }) {
   return (
-    <Context.Provider value={value}>
+    <Context.Provider value={hedra}>
       {children}
     </Context.Provider>
   )
@@ -13,11 +13,11 @@ export function HedraProvider({ value, children }) {
 
 HedraProvider.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  value: PropTypes.object,
+  hedra: PropTypes.object,
   children: PropTypes.node,
 }
 
-export function useHedra() {
+export function useParent() {
   const hedra = useContext(Context)
   return hedra
 }

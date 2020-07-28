@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
 import { WebGLRenderer } from 'three'
 
-import { useHedra } from '../../helpers/context'
+import { useParent } from '../../helpers/context'
 
 export default function useWebGLRenderer() {
-  const hedra = useHedra()
+  const hedra = useParent()
 
   if (!hedra.renderer) {
     hedra.renderer = true
 
     hedra.draw = () => {
-      hedra.renderer.render(hedra.scene, hedra.camera)
+      hedra.renderer.render(hedra.three, hedra.camera)
     }
   }
 
