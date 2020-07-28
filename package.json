@@ -21,6 +21,10 @@
     "develop": "react-scripts -r ./preconfig.js start",
     "test": "react-scripts -r ./preconfig.js test"
   },
+  "eslintConfig": {
+    "root": true,
+    "extends": "@hmudesign/eslint-config"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -32,16 +36,17 @@
     "stats.js": "^0.17.0"
   },
   "devDependencies": {
+    "@hmudesign/eslint-config": "^1.0.1",
     "chai": "^4.2.0",
     "depcheck": "^0.6.11",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
     "react-test-renderer": "^16.6.3",
-    "three": "^0.98.0"
+    "three": "^0.101.0"
   },
   "peerDepedencies": {
     "react": "^16.6.3",
-    "three": "^0.98.0"
+    "three": "^0.101.0"
   }
 }
