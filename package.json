@@ -29,7 +29,8 @@
       "react/sort-comp": "off",
       "import/no-cycle": "off",
       "no-multi-assign": "off",
-      "no-labels": "off"
+      "no-labels": "off",
+      "import/no-unresolved": "off"
     }
   },
   "main": "lib/hedra.js",
@@ -40,8 +41,7 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "^17.2.0",
-    "stats.js": "^0.17.0",
-    "three": "^0.101.0"
+    "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
