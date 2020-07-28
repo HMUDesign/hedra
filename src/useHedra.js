@@ -26,7 +26,9 @@ export default function useHedra(three, { name, position, rotation, scale } = {}
       hedra.add(three)
       return () => hedra.remove(three)
     }
-  })
+
+    return () => {}
+  }, [ hedra, three ])
 
   return context.current
 }

@@ -6,8 +6,8 @@ import useCamera from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
 
-// import Raw from './Raw/Raw'
-// import Object3D from './Object3d/Object3d'
+import Raw from './Raw/Raw'
+import Object3D from './Object3D/Object3D'
 import Mesh from './Mesh/Mesh'
 
 // import AmbientLight from './lights/AmbientLight/AmbientLight'
@@ -26,8 +26,8 @@ export {
   useClock,
   useWebGLRenderer,
 
-  // Raw,
-  // Object3D,
+  Raw,
+  Object3D,
   Mesh,
 
   // AmbientLight,
