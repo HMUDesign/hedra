@@ -1,5 +1,12 @@
 const regex_include = /#include (<|")(.+?)("|>)/;
 
+// add glsl loader
+// const rules = config.module.rules[2].oneOf;
+// rules.splice(rules.length - 1, 0, {
+// 	test: /\.glsl/,
+// 	use: path.join(__dirname, 'loader-webpack-glsl'),
+// });
+
 module.exports = function(contents) {
 	this.cacheable();
 
