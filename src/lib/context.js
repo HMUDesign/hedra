@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
-export const HedraContextType = React.createContext();
-export const HedraContextProvider = HedraContextType.Provider;
+export const HedraContextType = React.createContext()
+export const HedraContextProvider = HedraContextType.Provider

@@ -2,11 +2,11 @@
 // import Handlers from './lib/handlers';
 // import { bubbleEvent, cascadeEvent } from './index';
 
-export const PLUGIN = '';
+export const PLUGIN = ''
 
 export function getScenePropTypes() {
-	return {
-	};
+  return {
+  }
 }
 
 export function setupScene(scene, newProps) {
@@ -30,10 +30,9 @@ export function playScene(scene, time) {
 export function pauseScene(scene, time) {
 }
 
-
 export function getObjectPropTypes() {
-	return {
-	};
+  return {
+  }
 }
 
 export function setupObject(object, newProps) {

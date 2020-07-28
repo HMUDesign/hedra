@@ -1,4 +1,3 @@
-import Cube from './Cube';
-export default Cube;
+import Cube from './Cube'
 
-export * from './Cube';
+export default Cube

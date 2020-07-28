@@ -1,44 +1,44 @@
-import PropTypes from 'prop-types';
-import Stats from 'stats.js';
+import PropTypes from 'prop-types'
+import Stats from 'stats.js'
 
-export const PLUGIN = 'stats';
+export const PLUGIN = 'stats'
 
 export function getScenePropTypes() {
-	return {
-		stats: PropTypes.bool,
-	};
+  return {
+    stats: PropTypes.bool,
+  }
 }
 
 export function setupScene(scene, newProps) {
-	const { stats } = scene.props;
-	if (stats) {
-		scene.stats = new Stats();
-		scene.container.appendChild(scene.stats.domElement);
-	}
+  const { stats } = scene.props
+  if (stats) {
+    scene.stats = new Stats()
+    scene.container.appendChild(scene.stats.domElement)
+  }
 }
 
 export function teardownScene(scene, oldProps) {
-	if (scene.stats) {
-		scene.stats.domElement.remove();
-	}
+  if (scene.stats) {
+    scene.stats.domElement.remove()
+  }
 }
 
 export function updateScene(scene, oldProps, newProps) {
-	const { stats } = scene.props;
-	if (stats !== newProps.stats) {
-		if(scene.stats) {
-			scene.stats.domElement.remove();
-			delete scene.stats;
-		}
+  const { stats } = scene.props
+  if (stats !== newProps.stats) {
+    if (scene.stats) {
+      scene.stats.domElement.remove()
+      delete scene.stats
+    }
 
-		if (newProps.stats) {
-			scene.stats = new Stats();
-		}
-	}
+    if (newProps.stats) {
+      scene.stats = new Stats()
+    }
+  }
 }
 
 export function postDrawScene(scene, delta, time) {
-	if (scene.stats) {
-		scene.stats.update();
-	}
+  if (scene.stats) {
+    scene.stats.update()
+  }
 }
