@@ -4,7 +4,7 @@ import { Clock } from 'three'
 import { useParent } from '../../helpers/context'
 import Handlers from '../../helpers/Handlers'
 
-export default function useClock() {
+export default function useClock({ autopause = true } = {}) {
   const hedra = useParent()
 
   if (!hedra.clock) {
@@ -40,6 +40,20 @@ export default function useClock() {
       clock.stop()
     }
   }
+
+  useEffect(() => {
+    if (autopause) {
+      window.addEventListener('focus', hedra.play, false)
+      window.addEventListener('blur', hedra.pause, false)
+    }
+
+    return () => {
+      if (autopause) {
+        window.removeEventListener('blur', hedra.pause, false)
+        window.removeEventListener('focus', hedra.play, false)
+      }
+    }
+  }, [ hedra, autopause ])
 
   useEffect(() => {
     hedra.play()
