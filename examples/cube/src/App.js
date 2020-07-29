@@ -5,6 +5,7 @@ import {
   useCamera,
   useClock,
   useWebGLRenderer,
+  useTween,
 
   AmbientLight,
   DirectionalLight,
@@ -17,6 +18,7 @@ export default function App() {
   useCamera([ 0, 0, 2 ])
   useClock()
   useWebGLRenderer()
+  useTween()
 
   return (
     <>

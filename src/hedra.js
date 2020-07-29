@@ -6,6 +6,7 @@ import useStats from './Scene/plugins/useStats'
 import useCamera from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
+import useTween from './Scene/plugins/useTween'
 
 import Raw from './Raw/Raw'
 import Object3D from './Object3D/Object3D'
@@ -28,6 +29,7 @@ export {
   useCamera,
   useClock,
   useWebGLRenderer,
+  useTween,
 
   // Objects
   Raw,

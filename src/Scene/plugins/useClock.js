@@ -28,18 +28,16 @@ export default function useClock() {
     }
 
     hedra.play = () => {
+      // The clock resets elapsedTime each start. We need a running tally instead.
+      const { elapsedTime } = clock
       clock.start()
-      requestAnimationFrame(update)
+      clock.elapsedTime = elapsedTime || 0
 
-      // const time = clock.getElapsedTime()
-      // playScene(this, time)
+      requestAnimationFrame(update)
     }
 
     hedra.pause = () => {
       clock.stop()
-
-      // const time = clock.getElapsedTime()
-      // pauseScene(this, time)
     }
   }
 

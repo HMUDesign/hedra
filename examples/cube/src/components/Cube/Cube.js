@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { TextureLoader, BoxGeometry, MeshPhongMaterial } from 'three'
+import TWEEN from '@tweenjs/tween.js'
 
 import { Mesh } from '@hmudesign/hedra'
 import crateTexture from './assets/crate.gif'
@@ -29,6 +30,13 @@ export default function Cube({ size, children, ...props }) {
     cubeCenter.current.rotation.y += Math.PI / 7 * delta
     cubeOffset.current.rotation.x += Math.PI / 2 * delta
   }
+
+  useEffect(() => {
+    const tween = new TWEEN.Tween(cubeCenter.current.position)
+    tween.to({ z: 1 }, 2500)
+    tween.delay(2500)
+    tween.start()
+  }, [])
 
   return (
     <Mesh
