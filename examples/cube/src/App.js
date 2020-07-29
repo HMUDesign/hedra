@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {
+  useStats,
   useCamera,
   useClock,
   useWebGLRenderer,
@@ -12,6 +13,7 @@ import {
 import Cube from './components/Cube'
 
 export default function App() {
+  useStats()
   useCamera([ 0, 0, 2 ])
   useClock()
   useWebGLRenderer()

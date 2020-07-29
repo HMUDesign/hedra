@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'react'
 import { DirectionalLight, DirectionalLightHelper } from 'three'
 
 import ThreePropTypes from '../../ThreePropTypes'
@@ -7,7 +7,7 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraDirectionalLight({ helper, color, intensity, children, ...props }) {
+export default function HedraDirectionalLight({ helper, color, intensity, children, ...props }, ref) {
   const three = useMemo(() => new DirectionalLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -22,6 +22,7 @@ export default function HedraDirectionalLight({ helper, color, intensity, childr
     return null
   }, [ three, helper ])
 
+  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
 
   return (
@@ -31,6 +32,7 @@ export default function HedraDirectionalLight({ helper, color, intensity, childr
   )
 }
 
+HedraDirectionalLight = forwardRef(HedraDirectionalLight)
 HedraDirectionalLight.propTypes = {
   ...propTypes,
   helper: PropTypes.oneOfType([

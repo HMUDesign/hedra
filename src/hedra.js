@@ -2,6 +2,7 @@ import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
 import useHedra from './useHedra'
 
+import useStats from './Scene/plugins/useStats'
 import useCamera from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
@@ -22,14 +23,18 @@ export {
   Scene,
   useHedra,
 
+  // Scene Plugins
+  useStats,
   useCamera,
   useClock,
   useWebGLRenderer,
 
+  // Objects
   Raw,
   Object3D,
   Mesh,
 
+  // Lights
   AmbientLight,
   DirectionalLight,
   HemisphereLight,

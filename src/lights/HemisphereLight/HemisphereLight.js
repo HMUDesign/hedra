@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'react'
 import { HemisphereLight, HemisphereLightHelper } from 'three'
 
 import ThreePropTypes from '../../ThreePropTypes'
@@ -7,7 +7,7 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraHemisphereLight({ helper, skyColor, groundColor, intensity, children, ...props }) {
+export default function HedraHemisphereLight({ helper, skyColor, groundColor, intensity, children, ...props }, ref) {
   const three = useMemo(() => new HemisphereLight(), [])
   useMemo(() => updateColor(three.skyColor, skyColor), [ three, skyColor ])
   useMemo(() => updateColor(three.groundColor, groundColor), [ three, groundColor ])
@@ -23,6 +23,7 @@ export default function HedraHemisphereLight({ helper, skyColor, groundColor, in
     return null
   }, [ three, helper ])
 
+  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
 
   return (
@@ -32,6 +33,7 @@ export default function HedraHemisphereLight({ helper, skyColor, groundColor, in
   )
 }
 
+HedraHemisphereLight = forwardRef(HedraHemisphereLight)
 HedraHemisphereLight.propTypes = {
   ...propTypes,
   helper: PropTypes.oneOfType([

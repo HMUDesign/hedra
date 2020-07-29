@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useMemo } from 'react'
+import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'react'
 import { SpotLight, SpotLightHelper } from 'three'
 
 import ThreePropTypes from '../../ThreePropTypes'
@@ -7,7 +7,7 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraSpotLight({ helper, color, intensity, distance, angle, penumbra, decay, children, ...props }) {
+export default function HedraSpotLight({ helper, color, intensity, distance, angle, penumbra, decay, children, ...props }, ref) {
   const three = useMemo(() => new SpotLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -26,6 +26,7 @@ export default function HedraSpotLight({ helper, color, intensity, distance, ang
     return null
   }, [ three, helper ])
 
+  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
 
   return (
@@ -35,6 +36,7 @@ export default function HedraSpotLight({ helper, color, intensity, distance, ang
   )
 }
 
+HedraSpotLight = forwardRef(HedraSpotLight)
 HedraSpotLight.propTypes = {
   ...propTypes,
   helper: PropTypes.bool,

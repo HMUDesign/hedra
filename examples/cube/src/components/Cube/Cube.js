@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { TextureLoader, BoxGeometry, MeshPhongMaterial } from 'three'
 
 import { Mesh } from '@hmudesign/hedra'
 import crateTexture from './assets/crate.gif'
 
-export default function Cube({ size, ...props }) {
-  const [ { x, z } ] = useState({ x: 0, z: 0 })
-
+export default function Cube({ size, children, ...props }) {
   const textureLoader = useMemo(() => {
     return new TextureLoader()
   }, [])
@@ -23,27 +21,44 @@ export default function Cube({ size, ...props }) {
     })
   }, [ textureLoader ])
 
+  const cubeCenter = useRef()
+  const cubeOffset = useRef()
+
+  function handleUpdate(delta) {
+    cubeCenter.current.rotation.z += Math.PI / 2 * delta
+    cubeCenter.current.rotation.y += Math.PI / 7 * delta
+    cubeOffset.current.rotation.x += Math.PI / 2 * delta
+  }
+
   return (
     <Mesh
       {...props}
+      ref={cubeCenter}
       name="center cube"
       geometry={geometry}
       material={material}
 
-      rotation={[ 0, 0, z ]}
+      onUpdate={handleUpdate}
+
+      rotation={[ 0, 0, 0 ]}
     >
       <Mesh
         name="offset cube"
+        ref={cubeOffset}
         geometry={geometry}
         material={material}
 
         position={[ 1, 0, 0 ]}
-        rotation={[ x, 0, 0 ]}
+        rotation={[ 0, 0, 0 ]}
       />
+
+      {children}
     </Mesh>
   )
 }
 
+Cube = React.memo(Cube)
 Cube.propTypes = {
   size: PropTypes.number.isRequired,
+  children: PropTypes.node,
 }

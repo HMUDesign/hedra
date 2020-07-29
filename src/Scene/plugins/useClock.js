@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Clock } from 'three'
 
 import { useParent } from '../../helpers/context'
+import Handlers from '../../helpers/Handlers'
 
 export default function useClock() {
   const hedra = useParent()
@@ -11,17 +12,19 @@ export default function useClock() {
 
     const clock = new Clock(false)
 
+    const onUpdate = new Handlers()
+    hedra.sceneHandlers.onUpdate = onUpdate
+
     function update() {
       if (clock.running) {
         requestAnimationFrame(update)
       }
 
-      // const delta = clock.getDelta()
-      // const time = clock.getElapsedTime()
+      const delta = clock.getDelta()
+      const time = clock.getElapsedTime()
 
-      // preDrawScene(this, delta, time)
+      onUpdate.handle(delta, time)
       hedra.draw()
-      // postDrawScene(this, delta, time)
     }
 
     hedra.play = () => {
@@ -44,4 +47,11 @@ export default function useClock() {
     hedra.play()
     return () => hedra.pause()
   }, [ hedra ])
+}
+
+export function useUpdate(action, deps) {
+  const hedra = useParent()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => hedra.sceneHandlers.onUpdate.register(action), deps)
 }
