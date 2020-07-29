@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'react'
-import { RectAreaLight, RectAreaLightHelper } from 'three'
+import { RectAreaLight } from 'three'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper'
 
 import ThreePropTypes from '../../ThreePropTypes'
 import { HedraProvider } from '../../helpers/context'

@@ -40,7 +40,7 @@
   "peerDepedencies": {
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "three": "^0.101.0"
+    "three": ">=0.118.0"
   },
   "dependencies": {
     "@tweenjs/tween.js": "^17.2.0",
