@@ -7,10 +7,9 @@ import Handlers from '../../helpers/Handlers'
 export default function useClock({ autopause = true } = {}) {
   const hedra = useParent()
 
-  if (!hedra.clock) {
-    hedra.clock = true
-
+  if (!hedra.root.clock) {
     const clock = new Clock(false)
+    hedra.root.clock = clock
 
     const onUpdate = new Handlers()
     hedra.root.handlers.onUpdate = onUpdate
@@ -24,10 +23,10 @@ export default function useClock({ autopause = true } = {}) {
       const time = clock.getElapsedTime()
 
       onUpdate.handle(delta, time)
-      hedra.draw()
+      hedra.root.draw()
     }
 
-    hedra.play = () => {
+    hedra.root.play = () => {
       // The clock resets elapsedTime each start. We need a running tally instead.
       const { elapsedTime } = clock
       clock.start()
@@ -36,28 +35,30 @@ export default function useClock({ autopause = true } = {}) {
       requestAnimationFrame(update)
     }
 
-    hedra.pause = () => {
+    hedra.root.pause = () => {
       clock.stop()
     }
   }
 
   useEffect(() => {
+    const { play, pause } = hedra.root
+
     if (autopause) {
-      window.addEventListener('focus', hedra.play, false)
-      window.addEventListener('blur', hedra.pause, false)
+      window.addEventListener('focus', play, false)
+      window.addEventListener('blur', pause, false)
     }
 
     return () => {
       if (autopause) {
-        window.removeEventListener('blur', hedra.pause, false)
-        window.removeEventListener('focus', hedra.play, false)
+        window.removeEventListener('blur', pause, false)
+        window.removeEventListener('focus', play, false)
       }
     }
   }, [ hedra, autopause ])
 
   useEffect(() => {
-    hedra.play()
-    return () => hedra.pause()
+    hedra.root.play()
+    return () => hedra.root.pause()
   }, [ hedra ])
 }
 

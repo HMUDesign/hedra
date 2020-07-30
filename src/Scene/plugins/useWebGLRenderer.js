@@ -6,24 +6,24 @@ import { useParent } from '../../helpers/context'
 export default function useWebGLRenderer() {
   const hedra = useParent()
 
-  if (!hedra.renderer) {
-    hedra.renderer = true
+  if (!hedra.root.renderer) {
+    hedra.root.renderer = true
 
-    hedra.draw = () => {
-      hedra.renderer.render(hedra.three, hedra.camera)
+    hedra.root.draw = () => {
+      hedra.root.renderer.render(hedra.root.three, hedra.root.camera)
     }
   }
 
   useEffect(() => {
-    hedra.renderer = new WebGLRenderer({
-      canvas: hedra.canvas.current,
+    const renderer = new WebGLRenderer({
+      canvas: hedra.root.canvas.current,
       alpha: true,
       antialias: true,
     })
 
-    hedra.renderer.setClearColor(0x000000, 1)
-    hedra.renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setClearColor(0x000000, 1)
+    renderer.setPixelRatio(window.devicePixelRatio)
 
-    return () => hedra.renderer.dispose()
+    hedra.root.renderer = renderer
   }, [ hedra ])
 }

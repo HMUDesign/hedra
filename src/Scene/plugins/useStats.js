@@ -8,13 +8,13 @@ export default function useStats() {
   const hedra = useParent()
 
   useEffect(() => {
-    hedra.stats = new Stats()
-    hedra.canvas.current.parentNode.appendChild(hedra.stats.domElement)
+    hedra.root.stats = new Stats()
+    hedra.root.canvas.current.parentNode.appendChild(hedra.root.stats.domElement)
 
-    return () => hedra.stats.domElement.remove()
+    return () => hedra.root.stats.domElement.remove()
   }, [ hedra ])
 
   useUpdate(() => {
-    hedra.stats.update()
+    hedra.root.stats.update()
   }, [])
 }
