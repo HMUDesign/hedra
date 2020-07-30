@@ -7,7 +7,15 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraPointLight({ helper, color, intensity, distance, decay, children, ...props }, ref) {
+export default function HedraPointLight({
+  color,
+  intensity,
+  distance,
+  decay,
+  children,
+  helper: helperConfig = false,
+  ...props
+}, ref) {
   const three = useMemo(() => new PointLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -15,14 +23,16 @@ export default function HedraPointLight({ helper, color, intensity, distance, de
   useMemo(() => { three.decay = decay }, [ three, decay ])
 
   useEffect(() => {
-    if (helper) {
-      const thing = new PointLightHelper(three, typeof helper === 'number' ? helper : 1)
-      three.add(thing)
-      return () => three.remove(thing)
+    if (helperConfig) {
+      const size = typeof helperConfig === 'number' ? helperConfig : 1
+      const helper = new PointLightHelper(three, size)
+
+      three.add(helper)
+      return () => three.remove(helper)
     }
 
     return null
-  }, [ three, helper ])
+  }, [ three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)

@@ -13,7 +13,7 @@ export default function useClock({ autopause = true } = {}) {
     const clock = new Clock(false)
 
     const onUpdate = new Handlers()
-    hedra.sceneHandlers.onUpdate = onUpdate
+    hedra.root.handlers.onUpdate = onUpdate
 
     function update() {
       if (clock.running) {
@@ -65,5 +65,5 @@ export function useUpdate(action, deps) {
   const hedra = useParent()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => hedra.sceneHandlers.onUpdate.register(action), deps)
+  useEffect(() => hedra.root.handlers.onUpdate.register(action), deps)
 }

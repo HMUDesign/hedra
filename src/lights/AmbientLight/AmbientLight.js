@@ -7,7 +7,12 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraAmbientLight({ color, intensity, children, ...props }, ref) {
+export default function HedraAmbientLight({
+  color,
+  intensity,
+  children,
+  ...props
+}, ref) {
   const three = useMemo(() => new AmbientLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])

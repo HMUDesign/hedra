@@ -3,7 +3,7 @@ import Scene from './Scene/Scene'
 import useHedra from './useHedra'
 
 import useStats from './Scene/plugins/useStats'
-import useCamera from './Scene/plugins/useCamera'
+import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
 import useTween from './Scene/plugins/useTween'
@@ -26,7 +26,8 @@ export {
 
   // Scene Plugins
   useStats,
-  useCamera,
+  useCustomCamera,
+  usePerspectiveCamera,
   useClock,
   useWebGLRenderer,
   useTween,

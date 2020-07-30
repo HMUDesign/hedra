@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   useStats,
-  useCamera,
+  usePerspectiveCamera,
   useClock,
   useWebGLRenderer,
   useTween,
@@ -15,7 +15,7 @@ import Cube from './components/Cube'
 
 export default function App() {
   useStats()
-  useCamera([ 0, 0, 2 ])
+  usePerspectiveCamera({ position: [ 0, 0, 2 ] })
   useClock()
   useWebGLRenderer()
   useTween()

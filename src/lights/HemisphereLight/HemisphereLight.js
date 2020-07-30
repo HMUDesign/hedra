@@ -7,21 +7,30 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraHemisphereLight({ helper, skyColor, groundColor, intensity, children, ...props }, ref) {
+export default function HedraHemisphereLight({
+  skyColor,
+  groundColor,
+  intensity,
+  children,
+  helper: helperConfig = false,
+  ...props
+}, ref) {
   const three = useMemo(() => new HemisphereLight(), [])
   useMemo(() => updateColor(three.skyColor, skyColor), [ three, skyColor ])
   useMemo(() => updateColor(three.groundColor, groundColor), [ three, groundColor ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
 
   useEffect(() => {
-    if (helper) {
-      const thing = new HemisphereLightHelper(three, typeof helper === 'number' ? helper : 1)
-      three.add(thing)
-      return () => three.remove(thing)
+    if (helperConfig) {
+      const size = typeof helperConfig === 'number' ? helperConfig : 1
+      const helper = new HemisphereLightHelper(three, size)
+
+      three.add(helper)
+      return () => three.remove(helper)
     }
 
     return null
-  }, [ three, helper ])
+  }, [ three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)

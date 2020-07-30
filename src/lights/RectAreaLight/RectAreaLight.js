@@ -8,7 +8,15 @@ import { HedraProvider } from '../../helpers/context'
 import useHedra, { propTypes } from '../../useHedra'
 import { updateColor } from '../../helpers/updaters'
 
-export default function HedraRectAreaLight({ helper, color, intensity, width, height, children, ...props }, ref) {
+export default function HedraRectAreaLight({
+  color,
+  intensity,
+  width,
+  height,
+  children,
+  helper: helperConfig = false,
+  ...props
+}, ref) {
   const three = useMemo(() => new RectAreaLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -16,14 +24,15 @@ export default function HedraRectAreaLight({ helper, color, intensity, width, he
   useMemo(() => { three.height = height }, [ three, height ])
 
   useEffect(() => {
-    if (helper) {
-      const thing = new RectAreaLightHelper(three)
-      three.add(thing)
-      return () => three.remove(thing)
+    if (helperConfig) {
+      const helper = new RectAreaLightHelper(three)
+
+      three.add(helper)
+      return () => three.remove(helper)
     }
 
     return null
-  }, [ three, helper ])
+  }, [ three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)

@@ -15,53 +15,11 @@ export default function useHedra(three, { name, position, rotation, scale, ...pr
 
   const context = useRef()
   if (!context.current) {
-    context.current = {
-      handlers: {},
-      sceneHandlers: hedra ? hedra.sceneHandlers : {},
-
-      three,
-      add: (child) => three.add(child),
-      remove: (child) => three.remove(child),
-    }
+    context.current = makeContext(three)
+    context.current.root = hedra ? hedra.root : context.current
   }
 
-  const oldProps = useRef({})
-  useEffect(() => {
-    const { sceneHandlers } = context.current
-
-    for (const prop in oldProps.current) {
-      const oldHandler = oldProps.current[prop]
-      const newHandler = props[prop]
-
-      if (sceneHandlers[prop] && newHandler !== oldHandler) {
-        sceneHandlers[prop].off(oldHandler)
-      }
-    }
-
-    for (const prop in props) {
-      const oldHandler = oldProps.current[prop]
-      const newHandler = props[prop]
-
-      if (sceneHandlers[prop] && newHandler !== oldHandler) {
-        sceneHandlers[prop].on(newHandler)
-      }
-    }
-
-    oldProps.current = props
-  }, [ props ])
-  useEffect(() => {
-    return () => {
-      const { sceneHandlers } = context.current
-
-      for (const prop in oldProps.current) {
-        const oldHandler = oldProps.current[prop]
-
-        if (sceneHandlers[prop]) {
-          sceneHandlers[prop].off(oldHandler)
-        }
-      }
-    }
-  }, [])
+  useHandlers(context.current.root.handlers, props)
 
   useEffect(() => {
     if (hedra) {
@@ -80,4 +38,52 @@ export const propTypes = {
   position: ThreePropTypes.position,
   rotation: ThreePropTypes.rotation,
   scale: ThreePropTypes.scale,
+}
+
+function makeContext(three) {
+  return {
+    handlers: {},
+
+    three,
+    add: (child) => three.add(child),
+    remove: (child) => three.remove(child),
+  }
+}
+
+function useHandlers(handlers, props) {
+  const oldProps = useRef({})
+
+  useEffect(() => {
+    for (const prop in oldProps.current) {
+      const oldHandler = oldProps.current[prop]
+      const newHandler = props[prop]
+
+      if (handlers[prop] && newHandler !== oldHandler) {
+        handlers[prop].off(oldHandler)
+      }
+    }
+
+    for (const prop in props) {
+      const oldHandler = oldProps.current[prop]
+      const newHandler = props[prop]
+
+      if (handlers[prop] && newHandler !== oldHandler) {
+        handlers[prop].on(newHandler)
+      }
+    }
+
+    oldProps.current = props
+  }, [ handlers, props ])
+
+  useEffect(() => {
+    return () => {
+      for (const prop in oldProps.current) {
+        const oldHandler = oldProps.current[prop]
+
+        if (handlers[prop]) {
+          handlers[prop].off(oldHandler)
+        }
+      }
+    }
+  }, [ handlers ])
 }

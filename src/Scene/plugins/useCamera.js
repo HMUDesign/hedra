@@ -1,22 +1,14 @@
-import { PerspectiveCamera, Camera } from 'three'
+import { useEffect } from 'react'
+import { PerspectiveCamera, CameraHelper } from 'three'
 
 import { updateVector3 } from '../../helpers/updaters'
-import useChanged from '../../helpers/useChanged'
 
 import { useParent } from '../../helpers/context'
 
-export default function useCamera(config) {
-  const useCamera = config instanceof Camera
-    ? useCustomCamera
-    : usePerspectiveCamera
-
-  useCamera(config)
-}
-
-export function useCustomCamera(camera) {
+export function useCustomCamera({ camera }) {
   const hedra = useParent()
 
-  useChanged(camera, () => {
+  useEffect(() => {
     if (hedra.camera) {
       hedra.remove(hedra.camera)
       hedra.camera = undefined
@@ -26,13 +18,16 @@ export function useCustomCamera(camera) {
       hedra.camera = camera
       hedra.add(hedra.camera)
     }
-  })
+  }, [ hedra, camera ])
 }
 
-export function usePerspectiveCamera(position) {
+export function usePerspectiveCamera({
+  position,
+  helper: helperConfig = false,
+}) {
   const hedra = useParent()
 
-  useChanged(position, () => {
+  useEffect(() => {
     if (!hedra.camera) {
       hedra.camera = new PerspectiveCamera(75, 1, 0.1, 1000)
       hedra.add(hedra.camera)
@@ -40,5 +35,16 @@ export function usePerspectiveCamera(position) {
 
     updateVector3(hedra.camera.position, position)
     hedra.camera.lookAt(hedra.three.position)
-  })
+  }, [ hedra, position ])
+
+  useEffect(() => {
+    if (helperConfig) {
+      const helper = new CameraHelper(hedra.camera)
+
+      hedra.add(helper)
+      return () => hedra.remove(helper)
+    }
+
+    return undefined
+  }, [ hedra, helperConfig ])
 }
