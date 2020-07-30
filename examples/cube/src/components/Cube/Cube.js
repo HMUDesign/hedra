@@ -32,8 +32,8 @@ export default function Cube({ size, children, ...props }) {
   }
 
   useEffect(() => {
-    const tween = new TWEEN.Tween(cubeCenter.current.position)
-    tween.to({ z: 1 }, 2500)
+    const tween = new TWEEN.Tween(cubeCenter.current)
+    tween.to({ position: { z: 1 } }, 2500)
     tween.delay(2500)
     tween.start()
   }, [])

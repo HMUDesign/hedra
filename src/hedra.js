@@ -2,11 +2,11 @@ import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
 import useHedra from './useHedra'
 
-import useStats from './Scene/plugins/useStats'
 import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
-import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
+import useStats from './Scene/plugins/useStats'
 import useTween from './Scene/plugins/useTween'
+import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
 
 import Raw from './Raw/Raw'
 import Object3D from './Object3D/Object3D'
@@ -25,12 +25,12 @@ export {
   useHedra,
 
   // Scene Plugins
-  useStats,
   useCustomCamera,
   usePerspectiveCamera,
   useClock,
-  useWebGLRenderer,
+  useStats,
   useTween,
+  useWebGLRenderer,
 
   // Objects
   Raw,
