@@ -3,6 +3,7 @@ import React from 'react'
 import {
   usePerspectiveCamera,
   useClock,
+  useDynamicSize,
   useStats,
   useTween,
   useWebGLRenderer,
@@ -19,6 +20,7 @@ export default function App() {
   useClock()
   useWebGLRenderer()
   useTween()
+  useDynamicSize({ helper: true })
 
   return (
     <>

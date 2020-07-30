@@ -27,12 +27,12 @@ export function usePerspectiveCamera({
 }) {
   const hedra = useParent()
 
-  useEffect(() => {
-    if (!hedra.camera) {
-      hedra.camera = new PerspectiveCamera(75, 1, 0.1, 1000)
-      hedra.add(hedra.camera)
-    }
+  if (!hedra.camera) {
+    hedra.camera = new PerspectiveCamera(75, 1, 0.1, 1000)
+    hedra.add(hedra.camera)
+  }
 
+  useEffect(() => {
     updateVector3(hedra.camera.position, position)
     hedra.camera.lookAt(hedra.three.position)
   }, [ hedra, position ])

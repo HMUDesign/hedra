@@ -21,7 +21,7 @@ export default function useWebGLRenderer() {
       antialias: true,
     })
 
-    hedra.renderer.setClearColor(0x000000, 0)
+    hedra.renderer.setClearColor(0x000000, 1)
     hedra.renderer.setPixelRatio(window.devicePixelRatio)
 
     return () => hedra.renderer.dispose()
