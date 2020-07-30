@@ -1,17 +1,17 @@
 import { useCallback, useEffect } from 'react'
 import { Mesh, BoxGeometry, MeshBasicMaterial, MathUtils } from 'three'
 
-import { useParent } from '../../helpers/context'
+import { useRoot } from '../../helpers/context'
 
 export default function useDynamicSize({
   ratio = 16 / 9,
   fullscreen = true,
   helper: helperConfig = false,
 } = {}) {
-  const hedra = useParent()
+  const root = useRoot()
 
-  hedra.root.resize = useCallback(() => {
-    const { canvas, camera, renderer } = hedra.root
+  root.resize = useCallback(() => {
+    const { canvas, camera, renderer } = root
 
     const width = fullscreen ? window.innerWidth : canvas.parentNode.offsetWidth
     const height = fullscreen ? window.innerHeight : canvas.parentNode.offsetHeight
@@ -46,11 +46,11 @@ export default function useDynamicSize({
 
     camera.updateProjectionMatrix()
     renderer.setSize(width, height)
-  }, [ hedra, ratio, fullscreen ])
+  }, [ root, ratio, fullscreen ])
 
   useEffect(() => {
     if (helperConfig) {
-      const { camera } = hedra.root
+      const { camera } = root
 
       const geometry = new BoxGeometry(ratio, 1, 1)
       const material = new MeshBasicMaterial({ wireframe: true })
@@ -63,13 +63,13 @@ export default function useDynamicSize({
     }
 
     return undefined
-  }, [ hedra, ratio, helperConfig ])
+  }, [ root, ratio, helperConfig ])
 
   useEffect(() => {
-    const { resize } = hedra.root
+    const { resize } = root
     resize()
 
     window.addEventListener('resize', resize, false)
     return () => window.removeEventListener('resize', resize, false)
-  }, [ hedra ])
+  }, [ root ])
 }

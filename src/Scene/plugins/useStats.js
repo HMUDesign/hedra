@@ -1,20 +1,20 @@
 import { useEffect } from 'react'
 import Stats from 'stats.js'
 
-import { useParent } from '../../helpers/context'
+import { useRoot } from '../../helpers/context'
 import { useUpdate } from './useClock'
 
 export default function useStats() {
-  const hedra = useParent()
+  const root = useRoot()
 
   useEffect(() => {
-    hedra.root.stats = new Stats()
-    hedra.root.canvas.current.parentNode.appendChild(hedra.root.stats.domElement)
+    root.stats = new Stats()
+    root.canvas.current.parentNode.appendChild(root.stats.domElement)
 
-    return () => hedra.root.stats.domElement.remove()
-  }, [ hedra ])
+    return () => root.stats.domElement.remove()
+  }, [ root ])
 
   useUpdate(() => {
-    hedra.root.stats.update()
+    root.stats.update()
   }, [])
 }

@@ -8,6 +8,7 @@ import useHedra, { propTypes } from '../useHedra'
 export default function HedraRaw({ raw, children, ...props }, ref) {
   useImperativeHandle(ref, () => raw)
   const hedra = useHedra(raw, props)
+  raw.hedra = hedra
 
   return (
     <HedraProvider hedra={hedra}>

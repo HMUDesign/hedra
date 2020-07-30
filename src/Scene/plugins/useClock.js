@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 import { Clock } from 'three'
 
-import { useParent } from '../../helpers/context'
+import { useRoot } from '../../helpers/context'
 import Handlers from '../../helpers/Handlers'
 
 export default function useClock({ autopause = true } = {}) {
-  const hedra = useParent()
+  const root = useRoot()
 
-  if (!hedra.root.clock) {
+  if (!root.clock) {
     const clock = new Clock(false)
-    hedra.root.clock = clock
+    root.clock = clock
 
     const onUpdate = new Handlers()
-    hedra.root.handlers.onUpdate = onUpdate
+    root.handlers.onUpdate = onUpdate
 
     function update() {
       if (clock.running) {
@@ -23,10 +23,10 @@ export default function useClock({ autopause = true } = {}) {
       const time = clock.getElapsedTime()
 
       onUpdate.handle(delta, time)
-      hedra.root.draw()
+      root.draw()
     }
 
-    hedra.root.play = () => {
+    root.play = () => {
       // The clock resets elapsedTime each start. We need a running tally instead.
       const { elapsedTime } = clock
       clock.start()
@@ -35,13 +35,13 @@ export default function useClock({ autopause = true } = {}) {
       requestAnimationFrame(update)
     }
 
-    hedra.root.pause = () => {
+    root.pause = () => {
       clock.stop()
     }
   }
 
   useEffect(() => {
-    const { play, pause } = hedra.root
+    const { play, pause } = root
 
     if (autopause) {
       window.addEventListener('focus', play, false)
@@ -54,17 +54,17 @@ export default function useClock({ autopause = true } = {}) {
         window.removeEventListener('focus', play, false)
       }
     }
-  }, [ hedra, autopause ])
+  }, [ root, autopause ])
 
   useEffect(() => {
-    hedra.root.play()
-    return () => hedra.root.pause()
-  }, [ hedra ])
+    root.play()
+    return () => root.pause()
+  }, [ root ])
 }
 
 export function useUpdate(action, deps) {
-  const hedra = useParent()
+  const root = useRoot()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => hedra.root.handlers.onUpdate.register(action), deps)
+  useEffect(() => root.handlers.onUpdate.register(action), deps)
 }

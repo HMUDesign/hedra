@@ -7,7 +7,7 @@ import useClock from './Scene/plugins/useClock'
 import useDynamicSize from './Scene/plugins/useDynamicSize'
 import useStats from './Scene/plugins/useStats'
 import useTween from './Scene/plugins/useTween'
-import useWebGLRenderer from './Scene/plugins/useWebGLRenderer'
+import { useWebGLRenderer } from './Scene/plugins/useRenderer'
 
 import Raw from './Raw/Raw'
 import Object3D from './Object3D/Object3D'

@@ -21,3 +21,8 @@ export function useParent() {
   const hedra = useContext(Context)
   return hedra
 }
+
+export function useRoot() {
+  const hedra = useContext(Context)
+  return hedra.root
+}

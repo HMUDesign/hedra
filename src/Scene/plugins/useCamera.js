@@ -3,65 +3,65 @@ import { PerspectiveCamera, CameraHelper } from 'three'
 
 import { updateEuler, updateVector3 } from '../../helpers/updaters'
 
-import { useParent } from '../../helpers/context'
+import { useRoot } from '../../helpers/context'
 
 export function useCustomCamera({ camera }) {
-  const hedra = useParent()
+  const root = useRoot()
 
   useEffect(() => {
-    if (hedra.root.camera) {
-      hedra.root.remove(hedra.root.camera)
+    if (root.camera) {
+      root.remove(root.camera)
     }
 
-    if (!hedra.root.camera) {
-      hedra.root.camera = camera
-      hedra.root.add(camera)
+    if (!root.camera) {
+      root.camera = camera
+      root.add(camera)
     }
-  }, [ hedra, camera ])
+  }, [ root, camera ])
 }
 
 export function usePerspectiveCamera({
   name, position, rotation, scale,
   helper: helperConfig = false,
 }) {
-  const hedra = useParent()
+  const root = useRoot()
 
-  if (!hedra.root.camera) {
-    hedra.root.camera = new PerspectiveCamera(75, 1, 0.1, 1000)
-    hedra.root.add(hedra.root.camera)
+  if (!root.camera) {
+    root.camera = new PerspectiveCamera(75, 1, 0.1, 1000)
+    root.add(root.camera)
   }
 
   useMemo(() => {
-    const { camera } = hedra.root
+    const { camera } = root
     camera.name = name
-  }, [ hedra, name ])
+  }, [ root, name ])
 
   useMemo(() => {
-    const { camera, three } = hedra.root
+    const { camera, three } = root
     updateVector3(camera.position, position)
     camera.lookAt(three.position)
-  }, [ hedra, position ])
+  }, [ root, position ])
 
   useMemo(() => {
-    const { camera, three } = hedra.root
+    const { camera, three } = root
     updateEuler(camera.rotation, rotation)
     camera.lookAt(three.position)
-  }, [ hedra, rotation ])
+  }, [ root, rotation ])
 
   useMemo(() => {
-    const { camera, three } = hedra.root
+    const { camera, three } = root
     updateVector3(camera.scale, scale)
     camera.lookAt(three.position)
-  }, [ hedra, scale ])
+  }, [ root, scale ])
 
   useEffect(() => {
     if (helperConfig) {
-      const helper = new CameraHelper(hedra.root.camera)
+      const helper = new CameraHelper(root.camera)
 
-      hedra.root.add(helper)
-      return () => hedra.root.remove(helper)
+      root.add(helper)
+      return () => root.remove(helper)
     }
 
     return undefined
-  }, [ hedra, helperConfig ])
+  }, [ root, helperConfig ])
 }

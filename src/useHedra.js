@@ -11,24 +11,25 @@ export default function useHedra(three, { name, position, rotation, scale, ...pr
   useMemo(() => updateEuler(three.rotation, rotation), [ three, rotation ])
   useMemo(() => updateVector3(three.scale, scale), [ three, scale ])
 
-  const hedra = useParent()
+  const parent = useParent()
 
   const context = useRef()
   if (!context.current) {
     context.current = makeContext(three)
-    context.current.root = hedra ? hedra.root : context.current
+    context.current.root = parent ? parent.root : context.current
+    three.hedra = context.current
   }
 
   useHandlers(context.current.root.handlers, props)
 
   useEffect(() => {
-    if (hedra) {
-      hedra.add(three)
-      return () => hedra.remove(three)
+    if (parent) {
+      parent.add(three)
+      return () => parent.remove(three)
     }
 
     return () => {}
-  }, [ hedra, three ])
+  }, [ parent, three ])
 
   return context.current
 }
