@@ -26,6 +26,7 @@ export default function HedraPointLight({
     if (helperConfig) {
       const size = typeof helperConfig === 'number' ? helperConfig : 1
       const helper = new PointLightHelper(three, size)
+      helper.name = `${three.name || 'PointLight'} helper`
 
       three.add(helper)
       return () => three.remove(helper)

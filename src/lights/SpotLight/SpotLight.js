@@ -29,6 +29,7 @@ export default function HedraSpotLight({
   useEffect(() => {
     if (helperConfig) {
       const helper = new SpotLightHelper(three)
+      helper.name = `${three.name || 'SpotLight'} helper`
 
       three.add(helper)
       return () => three.remove(helper)

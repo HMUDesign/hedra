@@ -56,6 +56,7 @@ export default function useDynamicSize({
       const material = new MeshBasicMaterial({ wireframe: true })
 
       const helper = new Mesh(geometry, material)
+      helper.name = 'DynamicSize helper'
       helper.position.set(0, 0, -(ratio + 1) / 2)
 
       camera.add(helper)

@@ -22,6 +22,7 @@ export default function HedraDirectionalLight({
     if (helperConfig) {
       const size = typeof helperConfig === 'number' ? helperConfig : 1
       const helper = new DirectionalLightHelper(three, size)
+      helper.name = `${three.name || 'DirectionalLight'} helper`
 
       three.add(helper)
       return () => three.remove(helper)

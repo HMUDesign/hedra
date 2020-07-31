@@ -57,6 +57,7 @@ export function usePerspectiveCamera({
   useEffect(() => {
     if (helperConfig) {
       const helper = new CameraHelper(root.camera)
+      helper.name = `${root.camera.name || 'DirectionalLight'} helper`
 
       root.add(helper)
       return () => root.remove(helper)

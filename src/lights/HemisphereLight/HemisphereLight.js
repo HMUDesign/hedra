@@ -24,6 +24,7 @@ export default function HedraHemisphereLight({
     if (helperConfig) {
       const size = typeof helperConfig === 'number' ? helperConfig : 1
       const helper = new HemisphereLightHelper(three, size)
+      helper.name = `${three.name || 'HemisphereLight'} helper`
 
       three.add(helper)
       return () => three.remove(helper)

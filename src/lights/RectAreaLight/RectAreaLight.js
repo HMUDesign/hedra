@@ -26,6 +26,7 @@ export default function HedraRectAreaLight({
   useEffect(() => {
     if (helperConfig) {
       const helper = new RectAreaLightHelper(three)
+      helper.name = `${three.name || 'RectAreaLight'} helper`
 
       three.add(helper)
       return () => three.remove(helper)
