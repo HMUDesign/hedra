@@ -5,6 +5,7 @@ import useHedra from './useHedra'
 import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useDynamicSize from './Scene/plugins/useDynamicSize'
+import useMouse from './Scene/plugins/useMouse'
 import useStats from './Scene/plugins/useStats'
 import useTween from './Scene/plugins/useTween'
 import { useWebGLRenderer } from './Scene/plugins/useRenderer'
@@ -30,6 +31,7 @@ export {
   usePerspectiveCamera,
   useClock,
   useDynamicSize,
+  useMouse,
   useStats,
   useTween,
   useWebGLRenderer,

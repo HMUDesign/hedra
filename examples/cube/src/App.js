@@ -1,9 +1,10 @@
 import React from 'react'
 
 import {
-  usePerspectiveCamera,
   useClock,
   useDynamicSize,
+  useMouse,
+  usePerspectiveCamera,
   useStats,
   useTween,
   useWebGLRenderer,
@@ -15,12 +16,13 @@ import {
 import Cube from './components/Cube'
 
 export default function App() {
-  useStats()
   usePerspectiveCamera({ position: [ 0, 0, 2 ] })
-  useClock()
   useWebGLRenderer()
+  useClock()
+  useStats()
   useTween()
   useDynamicSize({ helper: true })
+  useMouse()
 
   return (
     <>

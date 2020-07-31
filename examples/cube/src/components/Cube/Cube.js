@@ -31,6 +31,18 @@ export default function Cube({ size, children, ...props }) {
     cubeOffset.current.rotation.x += Math.PI / 2 * delta
   }
 
+  function handleEnter(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      e.currentTargetThree.scale.setScalar(1.1)
+    }
+  }
+
+  function handleLeave(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      e.currentTargetThree.scale.setScalar(1)
+    }
+  }
+
   useEffect(() => {
     const tween = new TWEEN.Tween(cubeCenter.current)
     tween.to({ position: { z: 1 } }, 2500)
@@ -47,6 +59,8 @@ export default function Cube({ size, children, ...props }) {
       material={material}
 
       onUpdate={handleUpdate}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
 
       rotation={[ 0, 0, 0 ]}
     >
@@ -55,6 +69,9 @@ export default function Cube({ size, children, ...props }) {
         ref={cubeOffset}
         geometry={geometry}
         material={material}
+
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
 
         position={[ 1, 0, 0 ]}
         rotation={[ 0, 0, 0 ]}

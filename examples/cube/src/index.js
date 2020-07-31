@@ -6,7 +6,7 @@ import App from './App'
 
 ReactDOM.render((
   <React.StrictMode>
-    <Scene>
+    <Scene helper>
       <App />
     </Scene>
   </React.StrictMode>
