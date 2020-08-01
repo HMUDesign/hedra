@@ -1,9 +1,5 @@
 {
   "presets": [
     [ "react-app", { "absoluteRuntime": false } ]
-  ],
-  "plugins": [
-    "@babel/plugin-proposal-optional-chaining",
-    "emotion"
   ]
 }

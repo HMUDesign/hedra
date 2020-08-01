@@ -1,25 +1,47 @@
-import Component from './component'
-import Scene from './scene'
+import ThreePropTypes from './ThreePropTypes'
+import Scene from './Scene/Scene'
+import useHedra from './useHedra'
 
-import Object3D from './object3d'
-import Mesh from './mesh'
-import Raw from './raw'
+import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
+import useClock from './Scene/plugins/useClock'
+import useDynamicSize from './Scene/plugins/useDynamicSize'
+import useMouse from './Scene/plugins/useMouse'
+import useStats from './Scene/plugins/useStats'
+import useTween from './Scene/plugins/useTween'
+import { useWebGLRenderer } from './Scene/plugins/useRenderer'
 
-import AmbientLight from './ambient-light'
-import DirectionalLight from './directional-light'
-import HemisphereLight from './hemisphere-light'
-import PointLight from './point-light'
-import RectAreaLight from './rect-area-light'
-import SpotLight from './spot-light'
+import Raw from './Raw/Raw'
+import Object3D from './Object3D/Object3D'
+import Mesh from './Mesh/Mesh'
+
+import AmbientLight from './lights/AmbientLight/AmbientLight'
+import DirectionalLight from './lights/DirectionalLight/DirectionalLight'
+import HemisphereLight from './lights/HemisphereLight/HemisphereLight'
+import PointLight from './lights/PointLight/PointLight'
+import RectAreaLight from './lights/RectAreaLight/RectAreaLight'
+import SpotLight from './lights/SpotLight/SpotLight'
 
 export {
-  Component,
+  ThreePropTypes,
   Scene,
+  useHedra,
 
+  // Scene Plugins
+  useCustomCamera,
+  usePerspectiveCamera,
+  useClock,
+  useDynamicSize,
+  useMouse,
+  useStats,
+  useTween,
+  useWebGLRenderer,
+
+  // Objects
+  Raw,
   Object3D,
   Mesh,
-  Raw,
 
+  // Lights
   AmbientLight,
   DirectionalLight,
   HemisphereLight,

@@ -1,72 +1,89 @@
-import _ from 'lodash'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { TextureLoader, BoxGeometry, MeshPhongMaterial } from 'three'
+import TWEEN from '@tweenjs/tween.js'
 
-import { Component, Mesh } from '@hmudesign/hedra'
+import { Mesh } from '@hmudesign/hedra'
 import crateTexture from './assets/crate.gif'
 
-export default class Cube extends Component {
-  static propTypes = {
-    size: PropTypes.number.isRequired,
-  }
+export default function Cube({ size, children, ...props }) {
+  const textureLoader = useMemo(() => {
+    return new TextureLoader()
+  }, [])
 
-  constructor(props) {
-    super(props)
+  const geometry = useMemo(() => {
+    return new BoxGeometry(size, size, size)
+  }, [ size ])
 
-    this.state = {
-      x: 0,
-      z: 0,
-    }
-
-    const { size } = this.props
-    this.geometry = new BoxGeometry(size, size, size)
-
-    const textureLoader = new TextureLoader()
-    const texture = textureLoader.load(crateTexture)
-    this.material = new MeshPhongMaterial({ color: 0xffffff, map: texture })
-  }
-
-  handleClick = ({ target }) => {
-    console.log('clicked!', target) // eslint-disable-line no-console
-  }
-
-  handleKeyPress = (event) => {
-    console.log('keypress', event) // eslint-disable-line no-console
-  }
-
-  componentWillDraw(delta) {
-    const { x, z } = this.state
-    this.setState({
-      x: x + Math.PI / 2 * delta,
-      z: z + Math.PI / 2 * delta,
+  const material = useMemo(() => {
+    return new MeshPhongMaterial({
+      color: 0xffffff,
+      map: textureLoader.load(crateTexture),
     })
+  }, [ textureLoader ])
+
+  const cubeCenter = useRef()
+  const cubeOffset = useRef()
+
+  function handleUpdate(delta) {
+    cubeCenter.current.rotation.z += Math.PI / 2 * delta
+    cubeCenter.current.rotation.y += Math.PI / 7 * delta
+    cubeOffset.current.rotation.x += Math.PI / 2 * delta
   }
 
-  render() {
-    const props = _.omit(this.props, [ 'size' ])
-    const { x, z } = this.state
+  function handleEnter(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      e.currentTargetThree.scale.setScalar(1.1)
+    }
+  }
 
-    return (
+  function handleLeave(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      e.currentTargetThree.scale.setScalar(1)
+    }
+  }
+
+  useEffect(() => {
+    const tween = new TWEEN.Tween(cubeCenter.current)
+    tween.to({ position: { z: 1 } }, 2500)
+    tween.delay(2500)
+    tween.start()
+  }, [])
+
+  return (
+    <Mesh
+      {...props}
+      ref={cubeCenter}
+      name="center cube"
+      geometry={geometry}
+      material={material}
+
+      onUpdate={handleUpdate}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+
+      rotation={[ 0, 0, 0 ]}
+    >
       <Mesh
-        {...props}
-        name="center cube"
-        geometry={this.geometry}
-        material={this.material}
+        name="offset cube"
+        ref={cubeOffset}
+        geometry={geometry}
+        material={material}
 
-        rotation={[ 0, 0, z ]}
-        onClick={this.handleClick}
-        onKeyPress={this.handleKeyPress}
-      >
-        <Mesh
-          name="offset cube"
-          geometry={this.geometry}
-          material={this.material}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
 
-          position={[ 1, 0, 0 ]}
-          rotation={[ x, 0, 0 ]}
-        />
-      </Mesh>
-    )
-  }
+        position={[ 1, 0, 0 ]}
+        rotation={[ 0, 0, 0 ]}
+      />
+
+      {children}
+    </Mesh>
+  )
+}
+
+Cube = React.memo(Cube)
+Cube.propTypes = {
+  size: PropTypes.number.isRequired,
+  children: PropTypes.node,
 }

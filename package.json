@@ -1,6 +1,6 @@
 {
   "name": "@hmudesign/hedra",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A React component library for working with three.js.",
   "author": "Christopher Baker <christopher@hmudesign.com>",
   "license": "MIT",
@@ -24,38 +24,43 @@
     "root": true,
     "extends": "@hmudesign/eslint-config",
     "rules": {
+      "no-func-assign": "off",
       "import/no-extraneous-dependencies": "off",
-      "react/static-property-placement": "off",
-      "react/sort-comp": "off",
-      "import/no-cycle": "off",
-      "no-multi-assign": "off",
-      "no-labels": "off",
-      "import/no-unresolved": "off"
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "three"
+          ]
+        }
+      ]
     }
   },
   "main": "lib/hedra.js",
   "peerDepedencies": {
+    "@tweenjs/tween.js": "^18.6.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "three": "^0.101.0"
+    "react": "^16.13.1",
+    "three": ">=0.118.0"
   },
   "dependencies": {
-    "@tweenjs/tween.js": "^17.2.0",
     "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.7.4",
     "@hmudesign/eslint-config": "^1.0.0",
     "@storybook/addon-docs": "^5.2.6",
     "@storybook/addons": "^5.2.6",
     "@storybook/react": "^5.2.6",
     "@storybook/theming": "^5.2.8",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-emotion": "^10.0.23",
-    "babel-preset-react-app": "^9.0.2",
+    "@tweenjs/tween.js": "^18.6.0",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
     "depcheck": "^1.0.0",
-    "eslint": "^7.5.0"
+    "eslint": "^7.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "three": "^0.118.3"
   }
 }

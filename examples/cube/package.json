@@ -20,10 +20,11 @@
   },
   "dependencies": {
     "@hmudesign/hedra": "file:../..",
+    "@tweenjs/tween.js": "^18.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "three": "^0.101.0"
+    "three": "^0.118.3"
   }
 }

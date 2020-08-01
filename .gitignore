@@ -4,6 +4,7 @@
 
 # Temp dirs
 /next-src
+/old-src
 
 # Logs
 logs
