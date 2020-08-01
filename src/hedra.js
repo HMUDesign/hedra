@@ -2,6 +2,7 @@ import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
 import useHedra from './useHedra'
 
+import useBrowserEvents from './Scene/plugins/useBrowserEvents'
 import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
 import useClock from './Scene/plugins/useClock'
 import useDynamicSize from './Scene/plugins/useDynamicSize'
@@ -27,6 +28,7 @@ export {
   useHedra,
 
   // Scene Plugins
+  useBrowserEvents,
   useCustomCamera,
   usePerspectiveCamera,
   useClock,
