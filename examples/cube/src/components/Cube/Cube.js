@@ -43,6 +43,18 @@ export default function Cube({ size, children, ...props }) {
     }
   }
 
+  function handleClick(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      console.log(`clicked ${e.currentTargetThree.name}!`) // eslint-disable-line no-console
+    }
+  }
+
+  function handleKeyDown(e) {
+    if (e.currentTargetThree === e.targetThree) {
+      console.log(`keypress ${e.key} on ${e.currentTargetThree.name}!`) // eslint-disable-line no-console
+    }
+  }
+
   useEffect(() => {
     const tween = new TWEEN.Tween(cubeCenter.current)
     tween.to({ position: { z: 1 } }, 2500)
@@ -61,6 +73,8 @@ export default function Cube({ size, children, ...props }) {
       onUpdate={handleUpdate}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
 
       rotation={[ 0, 0, 0 ]}
     >
@@ -72,6 +86,8 @@ export default function Cube({ size, children, ...props }) {
 
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
 
         position={[ 1, 0, 0 ]}
         rotation={[ 0, 0, 0 ]}

@@ -13,6 +13,16 @@ export default function useMouse({ autopause = true } = {}) {
   if (!root.mouse) {
     root.mouse = new Vector2()
     root.hovered = new Set()
+
+    root.bubbleEvent = (type, data = {}) => {
+      if (!root.mouse.active) {
+        return
+      }
+
+      for (const event of root.hovered) {
+        bubbleEvent(event.targetThree, type, { ...event, ...data })
+      }
+    }
   }
 
   useEffect(() => {
@@ -92,14 +102,14 @@ export default function useMouse({ autopause = true } = {}) {
         }
       }
 
-      bubbleEvent(event.targetThree, 'onMouseEnter', event)
+      bubbleEvent(event.targetThree, 'onMouseEnter', { ...event })
     }
 
     if (mouse.dirty) {
       mouse.dirty = false
 
       for (const event of hoveredNext) {
-        bubbleEvent(event.targetThree, 'onMouseMove', event)
+        bubbleEvent(event.targetThree, 'onMouseMove', { ...event })
       }
     }
 
@@ -111,7 +121,7 @@ export default function useMouse({ autopause = true } = {}) {
         }
       }
 
-      bubbleEvent(event.targetThree, 'onMouseLeave', event)
+      bubbleEvent(event.targetThree, 'onMouseLeave', { ...event })
     }
 
     root.hovered = hoveredNext

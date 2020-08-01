@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {
+  useBrowserEvents,
   useClock,
   useDynamicSize,
   useMouse,
@@ -23,6 +24,7 @@ export default function App() {
   useTween()
   useDynamicSize({ helper: true })
   useMouse()
+  useBrowserEvents()
 
   return (
     <>
