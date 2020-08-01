@@ -28,7 +28,7 @@ export default function HedraScene({
 
   return (
     <HedraProvider hedra={hedra}>
-      <canvas ref={canvas} style={{ display: 'block' }} {...props} />
+      <canvas ref={canvas} {...props} />
       {children}
     </HedraProvider>
   )

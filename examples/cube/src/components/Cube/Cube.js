@@ -7,20 +7,18 @@ import { Mesh } from '@hmudesign/hedra'
 import crateTexture from './assets/crate.gif'
 
 export default function Cube({ size, children, ...props }) {
-  const textureLoader = useMemo(() => {
-    return new TextureLoader()
-  }, [])
-
   const geometry = useMemo(() => {
     return new BoxGeometry(size, size, size)
   }, [ size ])
 
   const material = useMemo(() => {
+    const loader = new TextureLoader()
+
     return new MeshPhongMaterial({
       color: 0xffffff,
-      map: textureLoader.load(crateTexture),
+      map: loader.load(crateTexture),
     })
-  }, [ textureLoader ])
+  }, [])
 
   const cubeCenter = useRef()
   const cubeOffset = useRef()

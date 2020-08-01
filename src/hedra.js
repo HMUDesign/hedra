@@ -1,6 +1,7 @@
 import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
 import useHedra from './useHedra'
+import { useRoot } from './helpers/context'
 
 import useBrowserEvents from './Scene/plugins/useBrowserEvents'
 import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
@@ -26,6 +27,7 @@ export {
   ThreePropTypes,
   Scene,
   useHedra,
+  useRoot,
 
   // Scene Plugins
   useBrowserEvents,
