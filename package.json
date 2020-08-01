@@ -1,6 +1,6 @@
 {
   "name": "@hmudesign/hedra",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A React component library for working with three.js.",
   "author": "Christopher Baker <christopher@hmudesign.com>",
   "license": "MIT",
