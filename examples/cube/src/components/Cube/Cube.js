@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo, useRef } from 'react'
-import { TextureLoader, BoxGeometry, MeshPhongMaterial } from 'three'
+import { TextureLoader, BoxBufferGeometry, MeshPhongMaterial } from 'three'
 import TWEEN from '@tweenjs/tween.js'
 
 import { Mesh } from '@hmudesign/hedra'
@@ -8,7 +8,7 @@ import crateTexture from './assets/crate.gif'
 
 export default function Cube({ size, children, ...props }) {
   const geometry = useMemo(() => {
-    return new BoxGeometry(size, size, size)
+    return new BoxBufferGeometry(size, size, size)
   }, [ size ])
 
   const material = useMemo(() => {
@@ -57,7 +57,9 @@ export default function Cube({ size, children, ...props }) {
     const tween = new TWEEN.Tween(cubeCenter.current)
     tween.to({ position: { z: 1 } }, 2500)
     tween.delay(2500)
+
     tween.start()
+    return () => tween.stop()
   }, [])
 
   return (

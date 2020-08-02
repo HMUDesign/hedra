@@ -1,0 +1,26 @@
+import { Meta, Description, Preview } from '@storybook/addon-docs/blocks'
+import { Demo, Cube, Sphere } from '@hmudesign/hedra/premade'
+
+<Meta title="Premade Assets/Readme" />
+
+# Premade Assets
+
+Hedra comes with a number of premade assets, geverally for demos, tests, or quick prototypes. To that end, they all require minimal config. Additionally, all Object assets (like Cube) will use `MeshNormalMaterial` by default, though many will use other materials depending on the props provided.
+
+## Cube
+<Description of={Cube} />
+
+<Preview>
+    <Demo>
+        <Cube rotation={[ 0, Math.PI / 4, 0 ]} />
+    </Demo>
+</Preview>
+
+## Sphere
+<Description of={Sphere} />
+
+<Preview>
+    <Demo>
+        <Sphere />
+    </Demo>
+</Preview>
