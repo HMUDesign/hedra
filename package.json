@@ -26,14 +26,16 @@
     "root": true,
     "extends": "@hmudesign/eslint-config",
     "rules": {
-      "no-func-assign": "off",
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": [
         "error",
         {
           "ignore": [
-            "three",
-            "@hmudesign/hedra"
+            "@hmudesign/hedra",
+            "@tweenjs/tween.js",
+            "prop-types",
+            "react",
+            "three"
           ]
         }
       ]
@@ -52,7 +54,7 @@
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.11.0",
-    "@hmudesign/eslint-config": "^1.0.0",
+    "@hmudesign/eslint-config": "^1.0.2",
     "@storybook/addon-docs": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",

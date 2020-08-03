@@ -6,13 +6,6 @@
   "scripts": {
     "start": "react-scripts start"
   },
-  "eslintConfig": {
-    "root": true,
-    "extends": "@hmudesign/eslint-config",
-    "rules": {
-      "no-func-assign": "off"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
