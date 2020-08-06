@@ -2,9 +2,13 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useImperativeHandle, useMemo } from 'react'
 import { Mesh } from 'three'
 
-import ThreePropTypes from '../ThreePropTypes'
-import { HedraProvider } from '../helpers/context'
-import useHedra, { propTypes } from '../useHedra'
+import {
+  ThreePropTypes,
+  useHedra,
+  propTypes,
+
+  HedraProvider,
+} from '../develop'
 
 // eslint-disable-next-line prefer-arrow-callback
 export default function HedraMesh({ geometry, material, children, ...props }, ref) {

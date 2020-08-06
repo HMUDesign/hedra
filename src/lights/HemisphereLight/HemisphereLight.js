@@ -2,10 +2,15 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'react'
 import { HemisphereLight, HemisphereLightHelper } from 'three'
 
-import ThreePropTypes from '../../ThreePropTypes'
-import { HedraProvider } from '../../helpers/context'
-import useHedra, { propTypes } from '../../useHedra'
-import { updateColor } from '../../helpers/updaters'
+import {
+  ThreePropTypes,
+  useHedra,
+  propTypes,
+
+  HedraProvider,
+
+  updateColor,
+} from '../../develop'
 
 export default function HedraHemisphereLight({
   skyColor,

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Stats from 'stats.js'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 import { useUpdate } from './useClock'
 
 export default function useStats() {

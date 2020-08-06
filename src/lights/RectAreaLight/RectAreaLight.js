@@ -3,10 +3,15 @@ import React, { forwardRef, useImperativeHandle, useEffect, useMemo } from 'reac
 import { RectAreaLight } from 'three'
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper'
 
-import ThreePropTypes from '../../ThreePropTypes'
-import { HedraProvider } from '../../helpers/context'
-import useHedra, { propTypes } from '../../useHedra'
-import { updateColor } from '../../helpers/updaters'
+import {
+  ThreePropTypes,
+  useHedra,
+  propTypes,
+
+  HedraProvider,
+
+  updateColor,
+} from '../../develop'
 
 export default function HedraRectAreaLight({
   color,

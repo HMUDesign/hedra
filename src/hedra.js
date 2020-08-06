@@ -1,16 +1,15 @@
 import ThreePropTypes from './ThreePropTypes'
 import Scene from './Scene/Scene'
-import useHedra from './useHedra'
 import { useRoot } from './helpers/context'
 
-import useBrowserEvents from './Scene/plugins/useBrowserEvents'
-import { useCustomCamera, usePerspectiveCamera } from './Scene/plugins/useCamera'
-import useClock from './Scene/plugins/useClock'
-import useDynamicSize from './Scene/plugins/useDynamicSize'
-import useMouse from './Scene/plugins/useMouse'
-import useStats from './Scene/plugins/useStats'
-import useTween from './Scene/plugins/useTween'
-import { useWebGLRenderer } from './Scene/plugins/useRenderer'
+import useBrowserEvents from './plugins/useBrowserEvents'
+import { useCustomCamera, usePerspectiveCamera } from './plugins/useCamera'
+import useClock from './plugins/useClock'
+import useDynamicSize from './plugins/useDynamicSize'
+import useMouse from './plugins/useMouse'
+import useStats from './plugins/useStats'
+import useTween from './plugins/useTween'
+import { useWebGLRenderer } from './plugins/useRenderer'
 
 import Raw from './Raw/Raw'
 import Object3D from './Object3D/Object3D'
@@ -26,7 +25,6 @@ import SpotLight from './lights/SpotLight/SpotLight'
 export {
   ThreePropTypes,
   Scene,
-  useHedra,
   useRoot,
 
   // Scene Plugins

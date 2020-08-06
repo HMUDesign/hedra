@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { WebGLRenderer } from 'three'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 
 export function useWebGLRenderer() {
   const root = useRoot()

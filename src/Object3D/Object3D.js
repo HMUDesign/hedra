@@ -2,8 +2,12 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useImperativeHandle, useMemo } from 'react'
 import { Object3D } from 'three'
 
-import { HedraProvider } from '../helpers/context'
-import useHedra, { propTypes } from '../useHedra'
+import {
+  useHedra,
+  propTypes,
+
+  HedraProvider,
+} from '../develop'
 
 export default function HedraObject3D({ children, ...props }, ref) {
   const three = useMemo(() => new Object3D(), [])

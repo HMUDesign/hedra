@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { Mesh, BoxGeometry, MeshBasicMaterial, MathUtils } from 'three'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 
 export default function useDynamicSize({
   ratio = 16 / 9,

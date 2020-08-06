@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { Clock } from 'three'
 
-import { useRoot } from '../../helpers/context'
-import Handlers from '../../helpers/Handlers'
+import { useRoot } from '../helpers/context'
+import Handlers from '../helpers/Handlers'
 
-export default function useClock({ autopause = true } = {}) {
+export default function useClock({ autopause = false } = {}) {
   const root = useRoot()
 
   if (!root.clock) {

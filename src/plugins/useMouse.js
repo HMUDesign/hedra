@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Raycaster, Vector2 } from 'three'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 
 import { useUpdate } from './useClock'
 
@@ -73,7 +73,11 @@ export default function useMouse({ autopause = true } = {}) {
     const intersects = raycaster.intersectObjects(three.children, true)
 
     const hoveredNext = new Set()
-    for (const { object, distance, point, uv } of intersects) {
+    for (const { object, distance, point, uv, face } of intersects) {
+      if (!face) {
+        continue
+      }
+
       let three = object
       while (three && !three.hedra) {
         three = three.parent

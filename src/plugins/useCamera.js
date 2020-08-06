@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from 'react'
 import { PerspectiveCamera, CameraHelper } from 'three'
 
-import { updateEuler, updateVector3 } from '../../helpers/updaters'
+import { updateEuler, updateVector3 } from '../helpers/updaters'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 
 export function useCustomCamera({ camera }) {
   const root = useRoot()

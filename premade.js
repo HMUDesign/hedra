@@ -1,1 +1,1 @@
-module.exports = require('./lib/premade')
+export * from './lib/premade'

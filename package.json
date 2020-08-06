@@ -10,7 +10,7 @@
   },
   "scripts": {
     "eslint": "eslint .",
-    "depcheck": "depcheck --ignores=@storybook/*",
+    "depcheck": "depcheck --ignores=@storybook/*,@hmudesign/hedra",
     "storybook": "start-storybook -p 3000",
     "clean": "rm -rf lib",
     "build": "npm run clean && NODE_ENV=production babel --source-maps --copy-files src --out-dir lib",
@@ -42,6 +42,11 @@
     }
   },
   "main": "lib/hedra.js",
+  "exports": {
+    ".": "./lib/hedra.js",
+    "./premade": "./lib/premade/index.js",
+    "./develop": "./lib/develop.js"
+  },
   "peerDepedencies": {
     "@tweenjs/tween.js": "^18.6.0",
     "prop-types": "^15.7.2",

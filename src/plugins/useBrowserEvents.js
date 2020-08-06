@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useRoot } from '../../helpers/context'
+import { useRoot } from '../helpers/context'
 
 const modifierNames = {
   Alt: 'alt',

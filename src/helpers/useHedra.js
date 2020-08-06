@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { useEffect, useMemo, useRef } from 'react'
 
-import ThreePropTypes from './ThreePropTypes'
-import { useParent } from './helpers/context'
-import Handlers from './helpers/Handlers'
-import { updateEuler, updateVector3 } from './helpers/updaters'
+import ThreePropTypes from '../ThreePropTypes'
+import { useParent } from './context'
+import Handlers from './Handlers'
+import { updateEuler, updateVector3 } from './updaters'
 
 export default function useHedra(three, { name, position, rotation, scale, ...props } = {}) {
   useMemo(() => { three.name = name }, [ three, name ])

@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
 import { Scene } from 'three'
 
-import { HedraProvider } from '../helpers/context'
-import useHedra from '../useHedra'
+import {
+  useHedra,
+  HedraProvider,
+} from '../develop'
 
 export default function HedraScene({
   children,
