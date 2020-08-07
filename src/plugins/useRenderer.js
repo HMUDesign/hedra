@@ -22,7 +22,7 @@ export function useWebGLRenderer() {
     })
 
     renderer.setClearColor(0x000000, 1)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    // renderer.setPixelRatio(window.devicePixelRatio)
 
     root.renderer = renderer
   }, [ root ])

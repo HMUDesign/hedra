@@ -39,19 +39,19 @@ export function usePerspectiveCamera({
   useMemo(() => {
     const { camera, three } = root
     updateVector3(camera.position, position)
-    camera.lookAt(three.position)
+    camera.lookAt(three.target)
   }, [ root, position ])
 
   useMemo(() => {
     const { camera, three } = root
     updateEuler(camera.rotation, rotation)
-    camera.lookAt(three.position)
+    camera.lookAt(three.target)
   }, [ root, rotation ])
 
   useMemo(() => {
     const { camera, three } = root
     updateVector3(camera.scale, scale)
-    camera.lookAt(three.position)
+    camera.lookAt(three.target)
   }, [ root, scale ])
 
   useEffect(() => {
