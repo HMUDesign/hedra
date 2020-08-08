@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React, { forwardRef, useMemo } from 'react'
-import { TextureLoader, BoxBufferGeometry, MeshBasicMaterial, MeshNormalMaterial } from 'three'
+import { TextureLoader, PlaneBufferGeometry, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 
 import { ThreePropTypes, Mesh } from '@hmudesign/hedra'
 
 /**
- * A Cube. Uses MeshBasicMaterial if a `texture` is provided.
+ * A Plane. Uses MeshBasicMaterial if a `texture` is provided.
  */
-export default function Cube({ size = 1, texture, color, children, ...props }, ref) {
+export default function Plane({ size = 1, texture, color, children, ...props }, ref) {
   const geometry = useMemo(() => {
-    return new BoxBufferGeometry(size, size, size)
+    return new PlaneBufferGeometry(size, size)
   }, [ size ])
 
   const material = useMemo(() => {
@@ -35,13 +35,13 @@ export default function Cube({ size = 1, texture, color, children, ...props }, r
   )
 }
 
-Cube = React.memo(forwardRef(Cube))
-Cube.propTypes = {
+Plane = React.memo(forwardRef(Plane))
+Plane.propTypes = {
   /** The size of the cube. */
   size: PropTypes.number,
-  /** The texture image path to display on the cube's sides. */
+  /** The texture image path to display on the plane's side. */
   texture: PropTypes.string,
-  /** The color to display on the cube's sides. */
+  /** The color to display on the plane's side. */
   color: ThreePropTypes.color,
   children: PropTypes.node,
 }

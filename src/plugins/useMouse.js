@@ -73,11 +73,7 @@ export default function useMouse({ autopause = true } = {}) {
     const intersects = raycaster.intersectObjects(three.children, true)
 
     const hoveredNext = new Set()
-    for (const { object, distance, point, uv, face } of intersects) {
-      if (!face) {
-        continue
-      }
-
+    for (const { object, distance, point, uv } of intersects) {
       let three = object
       while (three && !three.hedra) {
         three = three.parent

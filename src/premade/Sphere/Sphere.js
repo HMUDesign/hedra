@@ -2,28 +2,26 @@ import PropTypes from 'prop-types'
 import React, { forwardRef, useMemo } from 'react'
 import { TextureLoader, IcosahedronBufferGeometry, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 
-import { Mesh } from '@hmudesign/hedra'
+import { ThreePropTypes, Mesh } from '@hmudesign/hedra'
 
 /**
  * A Sphere (well, a geodesic icosahedron). Uses MeshBasicMaterial if a `texture` is provided.
  */
-export default function Sphere({ size = 1, detail = 2, texture, children, ...props }, ref) {
+export default function Sphere({ size = 1, detail = 2, texture, color, children, ...props }, ref) {
   const geometry = useMemo(() => {
     return new IcosahedronBufferGeometry(size, detail)
   }, [ size, detail ])
 
   const material = useMemo(() => {
-    if (texture) {
-      const loader = new TextureLoader()
-
+    if (texture || color) {
       return new MeshBasicMaterial({
-        color: 0xffffff,
-        map: loader.load(texture),
+        color: typeof color === 'undefined' ? 0xffffff : color,
+        map: texture ? new TextureLoader().load(texture) : null,
       })
     }
 
     return new MeshNormalMaterial()
-  }, [ texture ])
+  }, [ texture, color ])
 
   return (
     <Mesh
@@ -45,5 +43,7 @@ Sphere.propTypes = {
   detail: PropTypes.number,
   /** The texture image path to display on the cube's sides. */
   texture: PropTypes.string,
+  /** The color to display on the sphere's side. */
+  color: ThreePropTypes.color,
   children: PropTypes.node,
 }
