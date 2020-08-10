@@ -4,7 +4,7 @@ import { useRoot } from './helpers/context'
 
 import useBrowserEvents from './plugins/useBrowserEvents'
 import { useCustomCamera, usePerspectiveCamera } from './plugins/useCamera'
-import useClock from './plugins/useClock'
+import useClock, { useUpdate } from './plugins/useClock'
 import useDynamicSize from './plugins/useDynamicSize'
 import useMouse from './plugins/useMouse'
 import useStats from './plugins/useStats'
@@ -26,6 +26,7 @@ export {
   ThreePropTypes,
   Scene,
   useRoot,
+  useUpdate,
 
   // Scene Plugins
   useBrowserEvents,

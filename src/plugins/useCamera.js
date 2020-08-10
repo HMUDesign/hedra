@@ -5,7 +5,7 @@ import { updateEuler, updateVector3 } from '../helpers/updaters'
 
 import { useRoot } from '../helpers/context'
 
-export function useCustomCamera({ camera }) {
+export function useCustomCamera({ camera } = {}) {
   const root = useRoot()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function useCustomCamera({ camera }) {
 export function usePerspectiveCamera({
   name, position, rotation, scale,
   helper: helperConfig = false,
-}) {
+} = {}) {
   const root = useRoot()
 
   if (!root.camera) {
@@ -31,28 +31,10 @@ export function usePerspectiveCamera({
     root.add(root.camera)
   }
 
-  useMemo(() => {
-    const { camera } = root
-    camera.name = name
-  }, [ root, name ])
-
-  useMemo(() => {
-    const { camera, three } = root
-    updateVector3(camera.position, position)
-    camera.lookAt(three.target)
-  }, [ root, position ])
-
-  useMemo(() => {
-    const { camera, three } = root
-    updateEuler(camera.rotation, rotation)
-    camera.lookAt(three.target)
-  }, [ root, rotation ])
-
-  useMemo(() => {
-    const { camera, three } = root
-    updateVector3(camera.scale, scale)
-    camera.lookAt(three.target)
-  }, [ root, scale ])
+  useMemo(() => { root.camera.name = name }, [ root, name ])
+  useMemo(() => updateVector3(root.camera.position, position), [ root, position ])
+  useMemo(() => updateEuler(root.camera.rotation, rotation), [ root, rotation ])
+  useMemo(() => updateVector3(root.camera.scale, scale), [ root, scale ])
 
   useEffect(() => {
     if (helperConfig) {
