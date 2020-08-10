@@ -8,6 +8,7 @@ import {
   propTypes,
 
   HedraProvider,
+  useRoot,
 
   updateColor,
 } from '../../develop'
@@ -19,6 +20,7 @@ export default function HedraDirectionalLight({
   helper: helperConfig = false,
   ...props
 }, ref) {
+  const root = useRoot()
   const three = useMemo(() => new DirectionalLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -29,12 +31,12 @@ export default function HedraDirectionalLight({
       const helper = new DirectionalLightHelper(three, size)
       helper.name = `${three.name || 'DirectionalLight'} helper`
 
-      three.add(helper)
-      return () => three.remove(helper)
+      root.add(helper)
+      return () => root.remove(helper)
     }
 
-    return null
-  }, [ three, helperConfig ])
+    return undefined
+  }, [ root, three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)

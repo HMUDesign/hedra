@@ -9,6 +9,7 @@ import {
   propTypes,
 
   HedraProvider,
+  useRoot,
 
   updateColor,
 } from '../../develop'
@@ -22,6 +23,7 @@ export default function HedraRectAreaLight({
   helper: helperConfig = false,
   ...props
 }, ref) {
+  const root = useRoot()
   const three = useMemo(() => new RectAreaLight(), [])
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
@@ -33,12 +35,12 @@ export default function HedraRectAreaLight({
       const helper = new RectAreaLightHelper(three)
       helper.name = `${three.name || 'RectAreaLight'} helper`
 
-      three.add(helper)
-      return () => three.remove(helper)
+      root.add(helper)
+      return () => root.remove(helper)
     }
 
-    return null
-  }, [ three, helperConfig ])
+    return undefined
+  }, [ root, three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)

@@ -8,6 +8,7 @@ import {
   propTypes,
 
   HedraProvider,
+  useRoot,
 
   updateColor,
 } from '../../develop'
@@ -20,6 +21,7 @@ export default function HedraHemisphereLight({
   helper: helperConfig = false,
   ...props
 }, ref) {
+  const root = useRoot()
   const three = useMemo(() => new HemisphereLight(), [])
   useMemo(() => updateColor(three.skyColor, skyColor), [ three, skyColor ])
   useMemo(() => updateColor(three.groundColor, groundColor), [ three, groundColor ])
@@ -31,12 +33,12 @@ export default function HedraHemisphereLight({
       const helper = new HemisphereLightHelper(three, size)
       helper.name = `${three.name || 'HemisphereLight'} helper`
 
-      three.add(helper)
-      return () => three.remove(helper)
+      root.add(helper)
+      return () => root.remove(helper)
     }
 
-    return null
-  }, [ three, helperConfig ])
+    return undefined
+  }, [ root, three, helperConfig ])
 
   useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
