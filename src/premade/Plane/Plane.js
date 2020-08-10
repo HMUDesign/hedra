@@ -25,6 +25,7 @@ export default function Plane({ size = 1, texture, color, children, ...props }, 
 
   return (
     <Mesh
+      name="Premade Plane"
       {...props}
       ref={ref}
       geometry={geometry}

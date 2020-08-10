@@ -25,6 +25,7 @@ export default function Cube({ size = 1, texture, color, children, ...props }, r
 
   return (
     <Mesh
+      name="Premade Cube"
       {...props}
       ref={ref}
       geometry={geometry}

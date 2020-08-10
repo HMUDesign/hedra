@@ -25,6 +25,7 @@ export default function Sphere({ size = 1, detail = 2, texture, color, children,
 
   return (
     <Mesh
+      name="Premade Sphere"
       {...props}
       ref={ref}
       geometry={geometry}
