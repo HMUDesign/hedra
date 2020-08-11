@@ -10,9 +10,10 @@ import {
 } from '../develop'
 
 export default function HedraRaw({ raw, children, ...props }, ref) {
-  useImperativeHandle(ref, () => raw)
   const hedra = useHedra(raw, props)
   raw.hedra = hedra
+
+  useImperativeHandle(ref, () => hedra)
 
   return (
     <HedraProvider hedra={hedra}>

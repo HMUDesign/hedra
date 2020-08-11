@@ -16,8 +16,8 @@ export default function HedraMesh({ geometry, material, children, ...props }, re
   useMemo(() => { three.geometry = geometry }, [ three, geometry ])
   useMemo(() => { three.material = material }, [ three, material ])
 
-  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
+  useImperativeHandle(ref, () => hedra)
 
   return (
     <HedraProvider hedra={hedra}>

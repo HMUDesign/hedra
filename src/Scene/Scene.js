@@ -15,9 +15,10 @@ export default function HedraScene({
   const canvas = useRef()
   const three = useMemo(() => new Scene(), [])
 
-  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three)
   hedra.canvas = canvas
+
+  useImperativeHandle(ref, () => hedra)
 
   useEffect(() => {
     if (helperConfig) {

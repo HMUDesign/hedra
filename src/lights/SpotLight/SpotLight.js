@@ -45,8 +45,8 @@ export default function HedraSpotLight({
     return undefined
   }, [ root, three, helperConfig ])
 
-  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
+  useImperativeHandle(ref, () => hedra)
 
   return (
     <HedraProvider hedra={hedra}>

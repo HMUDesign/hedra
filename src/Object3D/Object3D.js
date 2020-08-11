@@ -12,8 +12,8 @@ import {
 export default function HedraObject3D({ children, ...props }, ref) {
   const three = useMemo(() => new Object3D(), [])
 
-  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
+  useImperativeHandle(ref, () => hedra)
 
   return (
     <HedraProvider hedra={hedra}>

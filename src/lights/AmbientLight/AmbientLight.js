@@ -22,8 +22,8 @@ export default function HedraAmbientLight({
   useMemo(() => updateColor(three.color, color), [ three, color ])
   useMemo(() => { three.intensity = intensity }, [ three, intensity ])
 
-  useImperativeHandle(ref, () => three)
   const hedra = useHedra(three, props)
+  useImperativeHandle(ref, () => hedra)
 
   return (
     <HedraProvider hedra={hedra}>
